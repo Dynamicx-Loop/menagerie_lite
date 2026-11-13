@@ -15,7 +15,7 @@ this does not apply one license to the whole collection.
 | Atom P3 | Internal source recorded; redistribution terms unresolved. |
 | SOMA-23 | ProtoMotions Apache-2.0. |
 | Unitree G1 | Unitree BSD-3-Clause plus ProtoMotions Apache-2.0 for its retargeting material. |
-| Unitree G1 primitive configuration from MuJoCo Menagerie | BSD-3-Clause; see [upstream notice](unitree_g1/LICENSE.Menagerie) and [family scope](unitree_g1/LICENSING.md). |
+| Unitree G1 standard configuration from MuJoCo Menagerie | BSD-3-Clause; see [upstream notice](unitree_g1/LICENSE.Menagerie) and [family scope](unitree_g1/LICENSING.md). |
 
 Family `LICENSE.*`, `NOTICE.*`, source snapshots, `SOURCE.json`, and manifest
 provenance remain in place. [UPSTREAM.md](UPSTREAM.md) identifies reused scaffold

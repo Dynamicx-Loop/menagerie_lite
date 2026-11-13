@@ -26,11 +26,18 @@ FAMILIES = {"astro_p1", "astro_p2", "atom_p3", "soma23", "unitree_g1"}
 
 
 class ModelDirectoryTests(unittest.TestCase):
+    def test_g1_offers_only_standard_menagerie_and_boxfeet(self):
+        entries = [entry for entry in model_entries() if entry["family"] == "unitree_g1"]
+        self.assertEqual({entry["model"].name for entry in entries},
+                         {"g1.xml", "unitree_g1_29dof_box_feet.xml"})
+        self.assertEqual({entry["scene"].name for entry in entries},
+                         {"scene.xml", "scene_29dof_box_feet.xml"})
+
     def test_catalog_and_family_layout(self):
         entries = list(model_entries())
         self.assertEqual({entry["family"] for entry in entries}, FAMILIES)
-        self.assertEqual(len(entries), 9)
-        self.assertEqual(len(MODEL_MAP), 7)
+        self.assertEqual(len(entries), 8)
+        self.assertEqual(len(MODEL_MAP), 6)
         self.assertEqual(len(LEGACY_MODEL_MAP), 2)
         self.assertFalse(set(MODEL_MAP) & set(LEGACY_MODEL_MAP))
         self.assertTrue(all(key.startswith("astro_p1/") for key in LEGACY_MODEL_MAP))

@@ -190,9 +190,9 @@
       }
     },
     "unitree_g1": {
-      "default_edition": "29dof_with_hand_rev_1_0",
+      "default_edition": "menagerie",
       "default_scene": "flat_floor",
-      "notes": "Official Unitree G1 description with 29 body joints and 14 hand joints.",
+      "notes": "Standard MuJoCo Menagerie G1 and ProtoMotions boxfeet; both have 29 body joints and fixed rubber hands.",
       "spawn": {
         "rpy": [
           0.0,
@@ -208,23 +208,39 @@
       },
       "status": "imported",
       "editions": {
-        "29dof_with_hand_rev_1_0": {
+        "menagerie": {
           "base_mode": "free",
-          "dof": 43,
-          "label": "29 DOF with hand rev 1.0",
-          "mjcf": "mjcf/unitree_g1_29dof_with_hand_rev_1_0.xml",
-          "urdf": "urdf/unitree_g1_29dof_with_hand_rev_1_0.urdf",
-          "mjcf_provenance": {
-            "authorized_at": "2026-08-17T00:00:00+00:00",
-            "source_revision": "97da67732d067c3147fc5fb7b7bafc8982718f4e7f8c92ff82266a4d9c07200d"
-          },
+          "dof": 29,
+          "label": "Unitree G1",
+          "kind": "upstream",
+          "mjcf": "g1.xml",
+          "urdf": null,
+          "notes": "Position targets in radians; native scene.xml supplies the floor and lighting. Select stand explicitly.",
           "source_provenance": {
+            "repository": "https://github.com/google-deepmind/mujoco_menagerie",
+            "revision": "370c43965323c0944b433b202aac5058b5f907a9",
+            "source_path": "unitree_g1/g1.xml",
+            "sha256": "106adfe8ad759da081d4eaef3a34fc28d6c4c99f3c7f4a385decbac402a51489",
             "license": "BSD-3-Clause",
-            "license_file": "LICENSE.Unitree",
-            "repository": "https://github.com/unitreerobotics/unitree_ros",
-            "revision": "daadf41ee9afce8f90fdc09a98506012691fa122",
-            "sha256": "97da67732d067c3147fc5fb7b7bafc8982718f4e7f8c92ff82266a4d9c07200d",
-            "source_path": "robots/g1_description/g1_29dof_with_hand_rev_1_0.urdf",
+            "license_file": "LICENSE.Menagerie"
+          }
+        },
+        "29dof_box_feet": {
+          "base_mode": "free",
+          "dof": 29,
+          "kind": "retargeting-reference",
+          "label": "29 DOF box feet (ProtoMotions)",
+          "mjcf": "unitree_g1_29dof_box_feet.xml",
+          "notes": "ProtoMotions G1 retargeting embodiment with no hand joints and box foot contacts.",
+          "urdf": null,
+          "source_provenance": {
+            "license": "Apache-2.0; bundled Unitree meshes remain BSD-3-Clause",
+            "license_file": "LICENSE.ProtoMotions",
+            "packaged_sha256": "079dd0bbb5c8699148a6c37cbd4420b11ace1c40ed930cad0bc9b4515156fcb4",
+            "repository": "https://github.com/NVlabs/ProtoMotions",
+            "revision": "a6df301d312dc58ac40a4d994f4f1064728d854c",
+            "source_path": "protomotions/data/assets/mjcf/g1_bm_box_feet.xml",
+            "source_role": "kinematic model selected when ProtoMotions converts retargeted G1 CSV files",
             "retargeting_urdf": {
               "license": "Apache-2.0; bundled Unitree meshes remain BSD-3-Clause",
               "license_file": "LICENSE.ProtoMotions",
@@ -235,25 +251,10 @@
               "packaged_sha256": "f96fd282d73a4fed139268b75309726b4582fc71f94286c28f044e5389b89276",
               "source_sha256": "bd199a00d2bd38f17b47ecf896c3891605af658ebc76d8954b6c2060af071c8e",
               "source_path": "protomotions/data/assets/urdf/for_retargeting/g1.urdf"
-            }
-          }
-        },
-        "29dof_box_feet": {
-          "base_mode": "free",
-          "dof": 29,
-          "kind": "retargeting-reference",
-          "label": "29 DOF box feet (ProtoMotions)",
-          "mjcf": "mjcf/unitree_g1_29dof_box_feet.xml",
-          "notes": "ProtoMotions G1 retargeting embodiment with no hand joints and box foot contacts.",
-          "urdf": null,
-          "source_provenance": {
-            "license": "Apache-2.0; bundled Unitree meshes remain BSD-3-Clause",
-            "license_file": "LICENSE.ProtoMotions",
-            "packaged_sha256": "c3836712d77463ad1ca1786b51b94eac2c8f8089505893d1a09eee1647bf218d",
-            "repository": "https://github.com/NVlabs/ProtoMotions",
-            "revision": "a6df301d312dc58ac40a4d994f4f1064728d854c",
-            "source_path": "protomotions/data/assets/mjcf/g1_bm_box_feet.xml",
-            "source_role": "kinematic model selected when ProtoMotions converts retargeted G1 CSV files"
+            },
+            "source_sha256": "ec0b539bb554e00f07732482e043ced07e25ebccff63c6f5a713a0d55df1bc16",
+            "packaged_path": "unitree_g1_29dof_box_feet.xml",
+            "packaging_note": "Preexisting local import adds the missing torso IMU site and adapts mesh paths; native XML is formatted with family-local assets. Physical/control definitions are preserved."
           }
         }
       }

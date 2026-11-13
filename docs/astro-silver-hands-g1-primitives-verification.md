@@ -23,7 +23,7 @@ session integrated catalog, gallery, metadata, tests and documentation.
 - `g1_mjx.xml`, `scene_mjx.xml`, `LICENSE.Menagerie` and all 35 referenced mesh
   assets match MuJoCo Menagerie revision
   `f3b6013629c7b94f8ee93fd977b161fa8350f9bc` byte-for-byte. Source/asset hashes
-  are recorded in [family provenance](../unitree_g1/provenance/menagerie_mjx.json).
+  are recorded in [archived family provenance](../unitree_g1/provenance/retired_variants/provenance/menagerie_mjx.json).
 - Both model and scene match 481 compiled NumPy arrays and 29 option fields
   each against the pinned upstream checkout under MuJoCo 3.11.0.
 - Robot: `nq=36`, `nv=35`, `nu=29`; 35 visual mesh geoms and 27 collision

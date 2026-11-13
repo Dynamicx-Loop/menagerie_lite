@@ -12,7 +12,7 @@ assets rather than replacing the repository with an upstream fork.
 | `catalog.py` | Adapted root `MODEL_MAP` and preview overrides, pruned to local native models; independent of the legacy application manifest. |
 | `test/model_test.py`, `test/model_dir_test.py` | Adapt upstream native control/no-warning and layout checks to unittest and the retained local inventory. Apache-2.0 headers retained. |
 | Family `scene*.xml` | Presentation structure adapted from `unitree_g1/scene.xml`, using local model references, names, and ground heights. Upstream G1 license retained in `LICENSES/MuJoCo-Menagerie-G1.txt`. |
-| `unitree_g1/g1_mjx.xml`, `unitree_g1/scene_mjx.xml` | Copied from the pinned upstream G1 family, retaining its 27 primitive colliders, 49 scene contact pairs, controls, sensors and keyframes. Actual notice in `unitree_g1/LICENSE.Menagerie`; hashes in the family provenance record. Native execution is verified; MJX runtime support is deferred. |
+| `unitree_g1/g1.xml`, `unitree_g1/scene.xml` | Exact standard G1 model and scene copied from upstream revision `370c43965323c0944b433b202aac5058b5f907a9`, including position servos, automatic contacts and the `stand` keyframe. Actual notice in `unitree_g1/LICENSE.Menagerie`; hashes in `unitree_g1/provenance/menagerie.json`. The earlier MJX configuration is frozen under `unitree_g1/provenance/retired_variants/`; MJX runtime support remains deferred. |
 | `Makefile`, `.pre-commit-config.yaml`, `.github/workflows/build.yml` | Adapt upstream development and native validation patterns; browser compatibility is deferred. |
 | Family README/changelog and root docs | Follow upstream organization using local inventory, notices, and provenance. |
 

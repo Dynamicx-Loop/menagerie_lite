@@ -1,6 +1,8 @@
-# Retained source snapshots
+# Retained source snapshot
 
-These original MJCF imports are preserved byte-for-byte for provenance and
-legacy application consumers. Maintain the canonical native model and scene
-XML in the parent family directory directly. There is no synchronization step.
-Workbench and URDF compatibility with the native structure are deferred.
+The ProtoMotions boxfeet import is retained here unchanged, including the
+preexisting missing-IMU-site repair and mesh-path adaptation. Maintain the
+canonical native model and scene XML in the parent family directory directly;
+there is no synchronization step. The old hand import is frozen under
+[retired provenance](../provenance/retired_variants/README.md).
+Workbench and URDF compatibility with the native structure remain deferred.

@@ -1,0 +1,45 @@
+{
+  "baseline": "0b3f9b96ebea05683d572c6d880ce3f61a820068",
+  "files": [
+    {
+      "original_path": "unitree_g1_29dof_with_hand_rev_1_0.xml",
+      "archived_path": "provenance/retired_variants/unitree_g1_29dof_with_hand_rev_1_0.xml",
+      "sha256": "ac03483e1201144f207e5f3e2e1fbc3600c152bfc3e2f1dcea062eb9e3d19181"
+    },
+    {
+      "original_path": "unitree_g1_29dof_with_hand_rev_1_0.png",
+      "archived_path": "provenance/retired_variants/unitree_g1_29dof_with_hand_rev_1_0.png",
+      "sha256": "d81a816d75d5963f96b3da48f12c731fbf9e1eb22ab645a9f5e15633d63b3611"
+    },
+    {
+      "original_path": "g1_mjx.xml",
+      "archived_path": "provenance/retired_variants/g1_mjx.xml",
+      "sha256": "7bf99a486bc3d4f24629dd5ccae30b7c9c3ad595d84e685fbd1e4920d457a61f"
+    },
+    {
+      "original_path": "g1_mjx.png",
+      "archived_path": "provenance/retired_variants/g1_mjx.png",
+      "sha256": "c86bd3fe7937aa2816ee78ed7f7d43ffa9dd90c9a294c4bd236486f5af90bea2"
+    },
+    {
+      "original_path": "scene_mjx.xml",
+      "archived_path": "provenance/retired_variants/scene_mjx.xml",
+      "sha256": "112b12e4d2cb3330e5062ff7b331b946c3c37121f35de0bace507d274ef06bda"
+    },
+    {
+      "original_path": "scene.xml",
+      "archived_path": "provenance/retired_variants/scene.xml",
+      "sha256": "10ad5b132d22e459ce91e84cd8763727405bfeba33993d51dabf6a326d43f4c6"
+    },
+    {
+      "original_path": "mjcf/unitree_g1_29dof_with_hand_rev_1_0.xml",
+      "archived_path": "provenance/retired_variants/mjcf/unitree_g1_29dof_with_hand_rev_1_0.xml",
+      "sha256": "a8561b2219f30933379fd433c0fd8f62fe50a4399d4accf4e0b61ed8660f2371"
+    },
+    {
+      "original_path": "provenance/menagerie_mjx.json",
+      "archived_path": "provenance/retired_variants/provenance/menagerie_mjx.json",
+      "sha256": "9834c2c0ab85ef7db9c01db8b47c9e1389398eba977b5d04cff50293fb0ccb66"
+    }
+  ]
+}

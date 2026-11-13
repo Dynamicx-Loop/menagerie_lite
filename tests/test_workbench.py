@@ -394,9 +394,9 @@ class WorkbenchTests(unittest.TestCase):
         self.assertEqual(robots["astro_p1"]["default_scene"], "flat_floor")
         self.assertEqual(robots["astro_p2"]["scene_description"]["id"], "flat_floor")
         self.assertEqual(robots["astro_p2"]["scene_description"]["robot_spawn"]["xyz"], [0.0, 0.0, 0.75])
-        self.assertEqual(robots["unitree_g1"]["dof"], 43)
-        self.assertEqual(robots["unitree_g1"]["formats"], {"urdf": True, "mjcf": True})
-        self.assertEqual(robots["unitree_g1"]["source_provenance"]["repository"], "https://github.com/unitreerobotics/unitree_ros")
+        self.assertEqual(robots["unitree_g1"]["dof"], 29)
+        self.assertEqual(robots["unitree_g1"]["formats"], {"urdf": False, "mjcf": True})
+        self.assertEqual(robots["unitree_g1"]["source_provenance"]["repository"], "https://github.com/google-deepmind/mujoco_menagerie")
         self.assertEqual(robots["soma23"]["dof"], 66)
         self.assertEqual(robots["soma23"]["formats"], {"urdf": False, "mjcf": True})
         self.assertTrue(robots["soma23"]["workbench_loadable"])
@@ -418,9 +418,9 @@ class WorkbenchTests(unittest.TestCase):
         status, _headers, body = self._get_raw("/api/robots/soma23/editions/free_base/export-urdf")
         self.assertEqual(status, 422)
         self.assertIn("urdf-unavailable", {issue["code"] for issue in json.loads(body)["report"]["issues"]})
-        status, _headers, body = self._get_raw("/api/robots/unitree_g1/editions/29dof_with_hand_rev_1_0/export-urdf")
+        status, _headers, body = self._get_raw("/api/robots/unitree_g1/editions/menagerie/export-urdf")
         self.assertEqual(status, 422)
-        self.assertIn("unsupported-geom", {issue["code"] for issue in json.loads(body)["report"]["issues"]})
+        self.assertIn("urdf-unavailable", {issue["code"] for issue in json.loads(body)["report"]["issues"]})
         self.assertEqual(self._get_raw("/api/robots/astro_p2/editions/..%2Foutside/export-urdf")[0], 404)
 
     def test_urdf_export_action_uses_saved_editions_without_touching_drafts(self):
@@ -472,13 +472,14 @@ class WorkbenchTests(unittest.TestCase):
         self.assertTrue(editions["30dof_mesh_collision"]["source_paths"]["urdf"].endswith("astro_p2_30dof_mesh_collision.urdf"))
         self.assertEqual(editions["30dof_primitive_collision_halfway"]["formats"], {"urdf": False, "mjcf": True})
 
-    def test_unitree_g1_editions_report_official_metadata_and_exclude_retargeting_reference_from_candidates(self):
+    def test_unitree_g1_editions_offer_only_menagerie_and_boxfeet(self):
         editions = self._get_json("/api/robots/unitree_g1/editions")["editions"]
         default = next(edition for edition in editions if edition["default"])
         retargeting = next(edition for edition in editions if edition["id"] == "29dof_box_feet")
 
-        self.assertEqual(default["id"], "29dof_with_hand_rev_1_0")
-        self.assertEqual(default["kind"], "official")
+        self.assertEqual({edition["id"] for edition in editions}, {"menagerie", "29dof_box_feet"})
+        self.assertEqual(default["id"], "menagerie")
+        self.assertEqual(default["kind"], "upstream")
         self.assertLess(default["modified_at"], 10**13)
         self.assertEqual(retargeting["kind"], "retargeting-reference")
         self.assertEqual(retargeting["dof"], 29)

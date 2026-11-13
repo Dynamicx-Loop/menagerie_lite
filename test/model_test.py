@@ -138,46 +138,65 @@ class ModelTests(unittest.TestCase):
                     np.testing.assert_array_equal(getattr(model, attribute), getattr(source_model, attribute)[robot_geoms])
 
 
-class G1PrimitiveTests(unittest.TestCase):
+class G1StandardTests(unittest.TestCase):
     def test_upstream_sources_and_assets_are_preserved(self):
         family = ROOT / "unitree_g1"
-        record = json.loads((family / "provenance/menagerie_mjx.json").read_text())
+        record = json.loads((family / "provenance/menagerie.json").read_text())
         for item in record["files"] + record["assets"]:
             with self.subTest(path=item["file"]):
                 payload = (family / item["file"]).read_bytes()
                 self.assertEqual(hashlib.sha256(payload).hexdigest(), item["sha256"])
 
-    def test_primitive_colliders_and_complete_scene_contacts(self):
-        robot = mujoco.MjModel.from_xml_path(str(ROOT / "unitree_g1/g1_mjx.xml"))
-        scene = mujoco.MjModel.from_xml_path(str(ROOT / "unitree_g1/scene_mjx.xml"))
+    def test_standard_contacts_controls_and_stand_pose(self):
+        robot = mujoco.MjModel.from_xml_path(str(ROOT / "unitree_g1/g1.xml"))
+        scene = mujoco.MjModel.from_xml_path(str(ROOT / "unitree_g1/scene.xml"))
         self.assertEqual((robot.nq, robot.nv, robot.nu), (36, 35, 29))
         visuals = robot.geom_group == 2
-        colliders = np.isin(robot.geom_group, [3, 4])
+        colliders = robot.geom_group == 3
         self.assertEqual(int(visuals.sum()), 35)
         self.assertTrue(np.all(robot.geom_type[visuals] == mujoco.mjtGeom.mjGEOM_MESH))
-        self.assertEqual(int(colliders.sum()), 27)
-        for kind, count in ((mujoco.mjtGeom.mjGEOM_CAPSULE, 23),
-                            (mujoco.mjtGeom.mjGEOM_SPHERE, 2),
-                            (mujoco.mjtGeom.mjGEOM_BOX, 2)):
+        self.assertEqual(int(colliders.sum()), 36)
+        for kind, count in ((mujoco.mjtGeom.mjGEOM_MESH, 24),
+                            (mujoco.mjtGeom.mjGEOM_CYLINDER, 4),
+                            (mujoco.mjtGeom.mjGEOM_SPHERE, 8)):
             self.assertEqual(int((robot.geom_type[colliders] == kind).sum()), count)
-        self.assertFalse(np.any(robot.geom_contype))
-        self.assertFalse(np.any(robot.geom_conaffinity))
-        self.assertEqual(robot.npair, 0)
-        self.assertEqual(scene.npair, 49)
-        floor = scene.geom("floor").id
-        floor_pairs = (scene.pair_geom1 == floor) | (scene.pair_geom2 == floor)
-        self.assertEqual(int(floor_pairs.sum()), 23)
-        self.assertTrue(np.all(scene.pair_dim[floor_pairs] == 3))
-        self.assertEqual(int((~floor_pairs).sum()), 26)
-        self.assertTrue(np.all(scene.pair_dim[~floor_pairs] == 1))
-        self.assertEqual(robot.nkey, 0)
-        self.assertEqual([scene.key(i).name for i in range(scene.nkey)], ["home", "knees_bent"])
-        self.assertAlmostEqual(robot.opt.timestep, 0.004)
-        # Position-servo feedback distinguishes this variant from the retained
-        # torque-motor models even though they share 29 body joint names.
+        self.assertTrue(np.all(robot.geom_contype[colliders] == 1))
+        self.assertTrue(np.all(robot.geom_conaffinity[colliders] == 1))
+        self.assertEqual((robot.npair, scene.npair), (0, 0))
+        self.assertAlmostEqual(robot.opt.timestep, 0.002)
+        self.assertEqual(robot.opt.integrator, mujoco.mjtIntegrator.mjINT_IMPLICITFAST)
+        self.assertEqual([robot.key(i).name for i in range(robot.nkey)], ["stand"])
+        self.assertEqual(robot.nsensor, 4)
+        self.assertEqual(robot.nlight, 0)
+        self.assertEqual(scene.nlight, 1)
+        # Standard Menagerie uses angle targets, with upstream force limits.
         self.assertTrue(np.all(robot.actuator_biastype == mujoco.mjtBias.mjBIAS_AFFINE))
+        np.testing.assert_array_equal(robot.actuator_gainprm[:, 0], np.full(29, 500.0))
         np.testing.assert_array_equal(robot.actuator_biasprm[:, 1], -robot.actuator_gainprm[:, 0])
-        np.testing.assert_array_equal(robot.actuator_biasprm[:, 2], np.full(robot.nu, -2.0))
+        self.assertTrue(np.all(robot.actuator_forcelimited))
+        self.assertTrue(np.all(robot.actuator_forcerange[:, 0] < 0))
+        self.assertTrue(np.all(robot.actuator_forcerange[:, 1] > 0))
+        # Explicitly exercise the upstream pose with matching position targets.
+        for model in (robot, scene):
+            data = mujoco.MjData(model)
+            mujoco.mj_resetDataKeyframe(model, data, model.key("stand").id)
+            for _ in range(50):
+                mujoco.mj_step(model, data)
+            self.assertTrue(np.isfinite(data.qpos).all())
+            self.assertTrue(np.isfinite(data.qvel).all())
+            self.assertFalse(np.any(data.warning.number))
+
+    def test_boxfeet_keeps_torque_controls_and_foot_boxes(self):
+        model = mujoco.MjModel.from_xml_path(str(ROOT / "unitree_g1/unitree_g1_29dof_box_feet.xml"))
+        self.assertEqual((model.nq, model.nv, model.nu), (36, 35, 29))
+        self.assertTrue(np.all(model.actuator_biastype == mujoco.mjtBias.mjBIAS_NONE))
+        np.testing.assert_array_equal(model.actuator_gainprm[:, 0], np.ones(29))
+        self.assertEqual(model.nkey, 0)
+        self.assertAlmostEqual(model.opt.timestep, 0.002)
+        for side in ("left", "right"):
+            foot = model.body(f"{side}_ankle_roll_link").id
+            boxes = (model.geom_bodyid == foot) & (model.geom_type == mujoco.mjtGeom.mjGEOM_BOX)
+            self.assertEqual(int(boxes.sum()), 1)
 
 
 class AstroP2CollisionTests(unittest.TestCase):

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-13
+
+- Keep exactly standard MuJoCo Menagerie G1 and ProtoMotions boxfeet in both catalogs.
+- Import byte-identical `g1.xml` and `scene.xml` from upstream revision `370c43965323c0944b433b202aac5058b5f907a9`, with its exact mesh dependencies and license.
+- Standard G1 becomes the default: 29 position-target actuators replace the former 43-actuator torque-controlled hand default. The upstream 0.002 s timestep, gains, force limits, automatic contacts and `stand` pose are preserved.
+- Freeze the removed hand and MJX configurations under `provenance/retired_variants/`. Preserve source metadata, URDF evidence, assets and licenses.
+- Keep boxfeet model/scene bytes and its existing IMU-site repair unchanged. Workbench and URDF parity, controller validation, hardware and MJX execution remain deferred.
+
 ## 2026-10-30
 
 - Add MuJoCo Menagerie's pinned `g1_mjx.xml` / `scene_mjx.xml` as an additional

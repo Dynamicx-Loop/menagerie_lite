@@ -114,8 +114,8 @@ make all
 
 **Humanoids.** DoF counts exclude the floating base. Click a preview to open its
 scene XML, or a model name for its description. Images are native renders with
-collision overlays hidden and no simulation stepping. The G1 primitive preview
-uses its scene's `home` keyframe; other previews use reference initialization.
+collision overlays hidden and no simulation stepping. The standard G1 preview
+uses its `stand` keyframe; other previews use reference initialization.
 Collision alternatives can share the same visual appearance.
 
 | Preview | Name | DoFs | License |
@@ -124,9 +124,8 @@ Collision alternatives can share the same visual appearance.
 | <a href="astro_p2/scene_with_hands.xml"><img src="astro_p2/astro_p2_with_hands.png" alt="Astro P2 with hands" width="120"></a> | [Astro P2 with hands](astro_p2/README.md) | 43 | [Apache-2.0 body; BSD-3-Clause hands](astro_p2/LICENSING.md) |
 | <a href="atom_p3/scene.xml"><img src="atom_p3/atom_p3_27dof.png" alt="Atom P3" width="120"></a> | [Atom P3](atom_p3/README.md) | 27 | [Unresolved](atom_p3/LICENSING.md) |
 | <a href="soma23/scene.xml"><img src="soma23/soma23_free_base.png" alt="SOMA-23" width="120"></a> | [SOMA-23](soma23/README.md) | 66 | [Apache-2.0](soma23/LICENSE.ProtoMotions) |
-| <a href="unitree_g1/scene.xml"><img src="unitree_g1/unitree_g1_29dof_with_hand_rev_1_0.png" alt="Unitree G1 with hands" width="120"></a> | [Unitree G1 with hands](unitree_g1/README.md) | 43 | [BSD-3-Clause](unitree_g1/LICENSE.Unitree) |
+| <a href="unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
 | <a href="unitree_g1/scene_29dof_box_feet.xml"><img src="unitree_g1/unitree_g1_29dof_box_feet.png" alt="Unitree G1 with box feet" width="120"></a> | [Unitree G1 with box feet](unitree_g1/README.md) | 29 | [Apache-2.0 model; BSD-3-Clause meshes](unitree_g1/LICENSING.md) |
-| <a href="unitree_g1/scene_mjx.xml"><img src="unitree_g1/g1_mjx.png" alt="Unitree G1 with primitive collisions" width="120"></a> | [Unitree G1 with primitive collisions](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
 
 Astro P2 has a fixed-head, 29-DoF body. Dex3-1 adds 14 finger joints
 (43 total). The default model now carries the maintainer-approved collision
@@ -138,11 +137,10 @@ The previous 30-DoF primitive, mesh, and intermediate
 P2 descriptions are retired; their history remains in Git. The formerly
 separate Astro 29 and Dex3-1 folders are consolidated into `astro_p2/`.
 
-The new G1 primitive configuration matches MuJoCo Menagerie's MJX model: 27
-robot collision geoms and 49 explicit scene contact pairs. It retains upstream
-position servos, numerical settings, sensors, and poses. Existing G1 variants
-remain available. Native MuJoCo loading is verified; MJX runtime support remains
-deferred. Use `scene_mjx.xml` for its floor contacts and saved poses.
+The standard G1 model is imported from MuJoCo Menagerie and uses position
+targets in radians. The ProtoMotions box-feet model uses torque controls.
+Both have 29 body joints and fixed rubber hands; see the
+[G1 description](unitree_g1/README.md) for their control and collision details.
 
 ## Legacy Models
 
