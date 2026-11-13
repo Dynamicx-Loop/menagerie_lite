@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-13
+
+- Match the articulated-hand model's 50 non-hand colliders to the approved
+  rubber-hand model. Move continuous upper-arm capsules to shoulder-roll, copy
+  the wrist-pitch capsules and right forearm radius, and remove eight redundant
+  shoulder/wrist geoms. Align the upper pelvis cylinder and both shin capsules.
+- Copy the two same-arm forearm/wrist-pitch body exclusions so the enlarged
+  wrist capsules retain the default's automatic contact policy without permanent
+  reference overlap. Keep zero explicit contact pairs.
+- Preserve all 18 articulated hand colliders, 14 finger joints, inertias,
+  visual meshes, body frames and `fist` keyframe. The articulated model now has
+  68 collision geoms. Verify complete compiled non-hand parity and both variants'
+  elbow/knee contact behavior, native loading, stepping and portability.
+
 ## 2026-10-31
 
 - Extract the default neck-handle crossbar and two support capsules into

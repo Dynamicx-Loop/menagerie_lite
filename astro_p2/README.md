@@ -44,6 +44,9 @@ initialization without simulation stepping.
    was approved. Its XML, scene, previews and derivation record are frozen under
    [provenance/retired_simplified/](provenance/retired_simplified/README.md).
    They are historical evidence, outside the active catalog and native checks.
+7. Synchronized the articulated-hand model's 50 non-hand colliders and its two
+   forearm/wrist overlap exclusions with the approved default. Preserved the
+   articulated hand geometry, joints, inertias, visuals and `fist` keyframe.
 
 ## Collision geometry
 
@@ -90,8 +93,17 @@ has radius 0.057 m, half-length 0.018 m and center z=0.10 m.
 Contacts and angle limits are compliant. Existing thigh–shin contact near
 133.3° still precedes the configured 139.8° knee maximum. No hardware contact
 calibration, performance improvement or powered-controller stability is claimed.
-The articulated-hand model retains its own earlier collider configuration;
-these default-model refinements are not synchronized into it.
+
+The articulated-hand model has **68 collision geoms**: the same 50 non-hand
+colliders as the default, plus its unchanged 18 Dex3-1 hand colliders. Its upper
+arms, forearms, wrists, pelvis and shins use the approved default geometry and
+automatic contact policy, including the two forearm/wrist-pitch overlap
+exclusions. Feet retain the same physical envelope despite historical right-foot
+row names and reversed capsule endpoints. Its inline foot/neck definitions
+remain separate from the default's shared collision assets. See the
+[articulated collider verification](../docs/astro-articulated-collider-verification.md)
+for the complete comparison and preservation checks. Visual mesh previews
+remain applicable because visual geometry is unchanged.
 
 ## Model notes
 

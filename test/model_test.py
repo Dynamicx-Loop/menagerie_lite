@@ -338,27 +338,67 @@ class AstroP2VariantTests(unittest.TestCase):
                 a, b = int(joint.dofadr[0]), int(other.dofadr[0])
                 np.testing.assert_array_equal(getattr(rubber, attribute)[a:a+count],
                                               getattr(dex, attribute)[b:b+count])
-        calibrated = {"pelvis_upper_shell_collision", "right_elbow_link_1_capsule_collision"} | {
-            f"{side}_{role}" for side in ("left", "right")
-            for role in ("knee_link_1_capsule_collision", "wrist_pitch_link_1_capsule_collision",
-                         "upper_arm_capsule_collision", "elbow_stop_collision")}
+        # Keep visual geometry preservation independent of collision parity.
         for i in range(rubber.ngeom):
             geom = rubber.geom(i)
-            if "rubber_hand" in geom.name or geom.name in calibrated:
+            if geom.group[0] != 1 or "rubber_hand" in geom.name:
                 continue
-            other = dex.geom(shared_foot_geom_name(geom.name))
+            other = dex.geom(geom.name)
             for attribute in ("type", "size", "pos", "quat", "friction", "contype", "conaffinity"):
-                if attribute == "quat":
-                    if geom.name.startswith("right_foot_"):
-                        # Reversing a symmetric sole capsule's endpoints leaves
-                        # its shape intact, but flips its quaternion axis.
-                        np.testing.assert_allclose(np.abs(geom.quat), np.abs(other.quat), rtol=0, atol=1e-11)
-                        continue
-                    # Manual cleanup of near-zero fromto coordinates changes the
-                    # compiled capsule quaternion by about 2e-12, not its shape.
-                    np.testing.assert_allclose(geom.quat, other.quat, rtol=0, atol=1e-11)
+                np.testing.assert_allclose(getattr(geom, attribute), getattr(other, attribute), rtol=0, atol=1e-11)
+
+    def test_non_hand_collision_geometry_matches_default(self):
+        def colliders(model, normalize_names=False):
+            result = {}
+            for i in range(model.ngeom):
+                geom = model.geom(i)
+                body_id = int(geom.bodyid[0])
+                ancestor = body_id
+                while ancestor:
+                    if model.body(ancestor).name in {"left_hand_link", "right_hand_link"}:
+                        break
+                    ancestor = int(model.body_parentid[ancestor])
+                if ancestor:
+                    continue
+                if geom.group[0] != 3 and not (geom.contype[0] or geom.conaffinity[0]):
+                    continue
+                self.assertEqual(int(geom.group[0]), 3, f"Active non-hand geom {geom.name} must be in group 3")
+                name = shared_foot_geom_name(geom.name) if normalize_names else geom.name
+                self.assertNotIn(name, result)
+                result[name] = (geom, model.body(body_id).name)
+            return result
+
+        expected = colliders(self.rubber)
+        actual = colliders(self.dex, normalize_names=True)
+        self.assertEqual(len(expected), 50)
+        self.assertEqual(set(actual), set(expected))
+        for name, (geom, body) in expected.items():
+            other, other_body = actual[name]
+            with self.subTest(geom=name):
+                self.assertEqual(body, other_body)
+                for attribute in ("type", "size", "pos", "group", "contype", "conaffinity", "condim",
+                                  "friction", "solref", "solimp", "margin", "gap", "priority", "solmix"):
+                    np.testing.assert_allclose(getattr(geom, attribute), getattr(other, attribute),
+                                               rtol=0, atol=1e-11, err_msg=f"{name}: {attribute}")
+                a, b = np.empty(9), np.empty(9)
+                mujoco.mju_quat2Mat(a, geom.quat)
+                mujoco.mju_quat2Mat(b, other.quat)
+                if geom.type[0] in (mujoco.mjtGeom.mjGEOM_CAPSULE, mujoco.mjtGeom.mjGEOM_CYLINDER):
+                    # Axial primitives are invariant under rotation about or reversal of their axis.
+                    axis_a, axis_b = a.reshape(3, 3)[:, 2], b.reshape(3, 3)[:, 2]
+                    sign = 1 if np.dot(axis_a, axis_b) >= 0 else -1
+                    np.testing.assert_allclose(axis_a, sign * axis_b, rtol=0, atol=2e-11)
                 else:
-                    np.testing.assert_array_equal(getattr(geom, attribute), getattr(other, attribute))
+                    np.testing.assert_allclose(a, b, rtol=0, atol=1e-11)
+
+    def test_articulated_collision_inventory_and_reference(self):
+        model = self.dex
+        self.assertEqual(int((model.geom_group == 3).sum()), 68)
+        self.assertEqual(model.nexclude, 2)
+        self.assertEqual(model.npair, 0)
+        state = mujoco.MjData(model)
+        mujoco.mj_forward(model, state)
+        self.assertEqual(state.ncon, 0)
 
     def test_default_collision_inventory_and_reference(self):
         default = self.rubber
@@ -375,18 +415,23 @@ class AstroP2VariantTests(unittest.TestCase):
         state = mujoco.MjData(default)
         mujoco.mj_forward(default, state)
         self.assertEqual(state.ncon, 0)
-        scene = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2/scene.xml"))
-        for side in ("left", "right"):
-            for angle, expected_contact in ((0, False), (-0.08, True), (2.3, False), (2.44, True)):
-                state = mujoco.MjData(scene)
-                state.qpos[scene.joint(f"{side}_knee_joint").qposadr[0]] = angle
-                mujoco.mj_forward(scene, state)
-                pair = {scene.geom(f"{side}_hip_roll_link_1_capsule_collision").id,
-                        scene.geom(f"{side}_knee_link_1_capsule_collision").id}
-                self.assertEqual(any({c.geom1, c.geom2} == pair for c in state.contact), expected_contact)
+        for scene_name in ("scene.xml", "scene_with_hands.xml"):
+            scene = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2" / scene_name))
+            for side in ("left", "right"):
+                for angle, expected_contact in ((0, False), (-0.08, True), (2.3, False), (2.44, True)):
+                    state = mujoco.MjData(scene)
+                    state.qpos[scene.joint(f"{side}_knee_joint").qposadr[0]] = angle
+                    mujoco.mj_forward(scene, state)
+                    pair = {scene.geom(f"{side}_hip_roll_link_1_capsule_collision").id,
+                            scene.geom(f"{side}_knee_link_1_capsule_collision").id}
+                    self.assertEqual(any({c.geom1, c.geom2} == pair for c in state.contact), expected_contact)
 
-    def test_default_upper_arm_shafts_are_continuous_through_yaw(self):
-        model = self.rubber
+    def test_both_variants_upper_arm_shafts_are_continuous_through_yaw(self):
+        for label, model in (("default", self.rubber), ("articulated", self.dex)):
+            with self.subTest(variant=label):
+                self._check_upper_arm_shafts_are_continuous_through_yaw(model)
+
+    def _check_upper_arm_shafts_are_continuous_through_yaw(self, model):
         data = mujoco.MjData(model)
         for side, radius in (("left", 0.037), ("right", 0.039)):
             shaft = model.geom(f"{side}_upper_arm_capsule_collision")
@@ -416,8 +461,12 @@ class AstroP2VariantTests(unittest.TestCase):
             self.assertTrue(joint.limited[0])
             np.testing.assert_array_equal(joint.range, [-0.52, 1.66])
 
-    def test_default_automatic_elbow_contacts(self):
-        model = self.rubber
+    def test_both_variants_automatic_elbow_contacts(self):
+        for label, model in (("default", self.rubber), ("articulated", self.dex)):
+            with self.subTest(variant=label):
+                self._check_automatic_elbow_contacts(model)
+
+    def _check_automatic_elbow_contacts(self, model):
         self.assertEqual(model.npair, 0)
         for side in ("left", "right"):
             upper = model.geom(f"{side}_upper_arm_capsule_collision")
@@ -445,8 +494,12 @@ class AstroP2VariantTests(unittest.TestCase):
                         # Native angle limit is not active here: contact must provide resistance.
                         self.assertGreater(data.qfrc_constraint[joint.dofadr[0]], 0)
 
-    def test_default_elbow_stop_resists_folding_motion(self):
-        model = self.rubber
+    def test_both_variants_elbow_stop_resists_folding_motion(self):
+        for label, model in (("default", self.rubber), ("articulated", self.dex)):
+            with self.subTest(variant=label):
+                self._check_elbow_stop_resists_folding_motion(model)
+
+    def _check_elbow_stop_resists_folding_motion(self, model):
         # Diagnostic only: no gravity or controller; native model file is untouched.
         model.opt.gravity[:] = 0
         for side in ("left", "right"):
