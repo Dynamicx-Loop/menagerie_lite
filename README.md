@@ -5,8 +5,8 @@
 **Menagerie X** is a collection of robot models for the
 [MuJoCo](https://github.com/google-deepmind/mujoco) physics engine. Its organization
 follows [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie),
-with four active robot families and eight native MJCF models. Astro P1 is
-retained separately as legacy, pending retirement.
+with three active robot families and six active native MJCF models. Astro P1
+and archived Atom P3 are retained separately as legacy references.
 
 Each model directory contains the robot description, a scene, local assets,
 derivation notes, and licensing records. Source fidelity and available controls
@@ -122,7 +122,6 @@ Collision alternatives can share the same visual appearance.
 | :---: | --- | --- | --- |
 | <a href="astro_p2/scene.xml"><img src="astro_p2/astro_p2.png" alt="Astro P2" width="120"></a> | [Astro P2](astro_p2/README.md) | 29 | [Apache-2.0](astro_p2/LICENSE) |
 | <a href="astro_p2/scene_with_hands.xml"><img src="astro_p2/astro_p2_with_hands.png" alt="Astro P2 with hands" width="120"></a> | [Astro P2 with hands](astro_p2/README.md) | 43 | [Apache-2.0 body; BSD-3-Clause hands](astro_p2/LICENSING.md) |
-| <a href="atom_p3/scene.xml"><img src="atom_p3/atom_p3_27dof.png" alt="Atom P3" width="120"></a> | [Atom P3](atom_p3/README.md) | 27 | [Unresolved](atom_p3/LICENSING.md) |
 | <a href="soma23/scene.xml"><img src="soma23/soma23_free_base.png" alt="SOMA-23" width="120"></a> | [SOMA-23](soma23/README.md) | 66 | [Apache-2.0](soma23/LICENSE.ProtoMotions) |
 | <a href="unitree_g1/scene.xml"><img src="unitree_g1/unitree_g1_29dof_with_hand_rev_1_0.png" alt="Unitree G1 with hands" width="120"></a> | [Unitree G1 with hands](unitree_g1/README.md) | 43 | [BSD-3-Clause](unitree_g1/LICENSE.Unitree) |
 | <a href="unitree_g1/scene_29dof_box_feet.xml"><img src="unitree_g1/unitree_g1_29dof_box_feet.png" alt="Unitree G1 with box feet" width="120"></a> | [Unitree G1 with box feet](unitree_g1/README.md) | 29 | [Apache-2.0 model; BSD-3-Clause meshes](unitree_g1/LICENSING.md) |
@@ -145,6 +144,13 @@ remain available. Native MuJoCo loading is verified; MJX runtime support remains
 deferred. Use `scene_mjx.xml` for its floor contacts and saved poses.
 
 ## Legacy Models
+
+[Atom P3](atom_p3/README.md) is **archived**. Its descriptions, preview, assets
+and source records remain available for reference, with baseline native loading
+checks. Ten encoded retained mesh files have unresolved cross-device behavior,
+and one decoded mesh is truncated. Repair and all-mesh validation are deferred;
+see the [archive record](docs/design/archive-atom-p3.md). Atom P3 is excluded
+from the active gallery and model map.
 
 [Astro P1](astro_p1/README.md) is **legacy and scheduled for retirement**. Its
 [30-DoF](astro_p1/scene.xml) and [27-DoF](astro_p1/scene_27dof.xml) models remain

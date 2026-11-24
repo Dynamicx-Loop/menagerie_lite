@@ -1,7 +1,14 @@
-# Atom P3 Description (MJCF)
+# Atom P3 Description (MJCF, Archived)
 
 > [!IMPORTANT]
 > Tested with MuJoCo 3.11.0, the version pinned by this repository.
+
+> [!WARNING]
+> **Archived:** retained for reference outside the active collection. Ten
+> retained mesh blobs are encoded and behave differently across devices;
+> `Link15_L.STL` is truncated after decoding. Mesh repair and all-mesh validation
+> are deferred. Existing model/scene load checks do not cover these unused assets.
+> See the [archive record](../docs/design/archive-atom-p3.md).
 
 ## Changelog
 

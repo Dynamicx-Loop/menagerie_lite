@@ -5,8 +5,9 @@ Accepted design decisions and their implementation status are recorded in
 [the per-robot decision log](docs/design/per-robot-design-decisions.md).
 
 Canonical native robot/scene XML lives at each family root; root `catalog.py`
-curates seven active models plus two legacy P1 models, independently of the
-application `manifest.json`. Astro P2 is one family with a shared 29-joint body
+curates six active models plus three legacy models (Astro P1 and archived Atom P3),
+independently of the application `manifest.json`. Astro P2 is one family with a
+shared 29-joint body
 and two maintained models: the approved default and articulated Dex3-1 variant.
 The default has 52 collision primitives with automatic elbow contacts and no
 explicit pairs. The simplified alternative is retired to frozen provenance;
@@ -18,3 +19,7 @@ its complete 49-pair scene as native XML; MJX execution remains deferred.
 There is no regeneration step. `make all` is the native acceptance gate.
 Workbench, URDF compatibility, and MJX remain deferred. See
 [UPSTREAM.md](UPSTREAM.md) for preservation and ownership details.
+
+Atom P3 is archived outside the active collection. Its encoded/truncated mesh
+issue and all-mesh validation are deferred; source assets remain unchanged.
+See [the archive record](docs/design/archive-atom-p3.md).
