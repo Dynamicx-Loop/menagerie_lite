@@ -50,3 +50,37 @@ This sandbox exposes `.git` read-only, so no worktree, commit or push is made.
 Existing README/research changes from the preceding viewer task are preserved.
 The new public live link cannot serve this local import until it is published;
 native loading does not certify sensor realism or hardware behavior.
+
+## Mac publication integration — 2026-11-24
+
+The user authorized review, commit and publication of the accumulated Mac work.
+The existing G1 commit `438f2bf` and D435i/gallery commit `594dce7` are integrated
+with origin's Atom archive `6d0acff` in `.worktrees/publish-mac-changes`.
+Resolve README and context conflicts by preserving exactly the two G1 variants,
+D435i's Miscellaneous entry, the live gallery links, and Atom's archived status.
+The combined catalog has six active models in four families and three retained
+legacy models. No robot XML, controls, assets or Atom repair changes are needed
+for this integration.
+
+Before publication, run `make all`, focused G1 legacy tests, source archive
+inclusion and D435i source-hash checks, gallery/catalog path parity, and
+`git diff --check`. Review the resulting diff against repository standards and
+both feature plans, then push without force and fast-forward the primary Mac
+checkout. The dated viewer observations above remain historical evidence;
+this publication does not revalidate the browser viewer or hardware behavior.
+
+### Integration validation receipt
+
+- `make all` with pinned dependencies: 26 native methods passed (four layout/style
+  and 22 model methods), including compiled loading, stepping and standalone copies.
+- D435i and G1 source receipts match all listed SHA-256 and available Git blob
+  hashes. Six gallery scene links match exactly the active native catalog.
+- Atom non-Markdown assets and the boxfeet native model/scene match origin/main.
+- Focused G1 compatibility suite: six tests passed; its global legacy-validator
+  assertion failed solely because native-only D435i is absent from the application
+  manifest. That integration is explicitly deferred; no validator masking or
+  application change is made. The focused G1 Workbench editions endpoint test passed.
+- Independent standards and spec reviews found no blocking issues. Browser,
+  hardware, controller stability and deferred Atom all-mesh checks were not run.
+- `uv build --sdist` succeeded; archive inspection verified all imported D435i
+  receipt files, the local scene, integrated catalog, standard G1 model and mesh alias.

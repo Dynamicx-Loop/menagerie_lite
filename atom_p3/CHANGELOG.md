@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-24
+
+- Archive Atom P3 outside the active catalog and gallery, retaining its legacy native entry, metadata, models, scenes, assets, preview and source records.
+- Defer the ten encoded mesh blobs, truncated `Link15_L.STL`, and new all-mesh regression coverage. No geometry or physical parameters were changed.
+
 ## 2026-10-30
 
 - Match the upstream README structure and add native model preview images,

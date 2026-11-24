@@ -22,7 +22,7 @@
     "atom_p3": {
       "default_edition": "27dof",
       "default_scene": "flat_floor",
-      "notes": "Atom P3 imported MJCF-only description.",
+      "notes": "Archived Atom P3; retained for reference outside the active collection. Encoded and truncated retained mesh assets remain unresolved; mesh repair is deferred.",
       "spawn": {
         "rpy": [
           0.0,
@@ -36,7 +36,7 @@
           0.98
         ]
       },
-      "status": "imported",
+      "status": "archived",
       "editions": {
         "27dof": {
           "base_mode": "free",

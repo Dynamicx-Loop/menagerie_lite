@@ -32,15 +32,16 @@ class ModelType(int, enum.Enum):
 MODEL_MAP = {
     "astro_p2/astro_p2": ModelType.HUMANOID,
     "astro_p2/astro_p2_with_hands": ModelType.HUMANOID,
-    "atom_p3/atom_p3_27dof": ModelType.HUMANOID,
     "soma23/soma23_free_base": ModelType.HUMANOID,
     "unitree_g1/g1": ModelType.HUMANOID,
     "unitree_g1/unitree_g1_29dof_box_feet": ModelType.HUMANOID,
     "realsense_d435i/d435i": ModelType.MISC,
 }
 
-# Retained for native loading checks; these models are scheduled for retirement.
+# Retained for native loading checks; Astro P1 is scheduled for retirement.
+# Atom P3 is archived while mesh-integrity repair is deferred.
 LEGACY_MODEL_MAP = {
+    "atom_p3/atom_p3_27dof": ModelType.HUMANOID,
     "astro_p1/astro_p1_30dof": ModelType.HUMANOID,
     "astro_p1/astro_p1_27dof": ModelType.HUMANOID,
 }

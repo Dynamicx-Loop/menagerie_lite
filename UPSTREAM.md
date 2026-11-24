@@ -23,11 +23,11 @@ with each family; see [LICENSING.md](LICENSING.md).
 
 ## Native ownership and preservation
 
-- The active collection has seven models across five families, classified as
+- The active collection has six models across four families, classified as
   Humanoids or Miscellaneous using upstream category values. D435i is a fixed,
   zero-DoF asset without simulated camera or IMU definitions. Astro P1's two
-  models are retained in `LEGACY_MODEL_MAP` and receive native checks until
-  later retirement; they are excluded from the active gallery.
+  models and archived Atom P3 are retained in `LEGACY_MODEL_MAP` and receive
+  native checks; they are excluded from the active gallery.
 - Astro P2 is one family with two maintained model/scene pairs: default
   fixed-head 29-joint Astro P2 and the articulated Dex3-1 alternative. The
   maintainer-approved default retains all assets/physics and uses 52 collision
@@ -50,13 +50,11 @@ with each family; see [LICENSING.md](LICENSING.md).
 - All non-hand Astro body properties are shared between the two variants. Source
   frames are retained; both scenes use one floor at `z=-0.75`. Atom, SOMA, G1,
   and retained P1 physical assets are unchanged by Astro consolidation.
-- The local G1 source snapshot contains a demonstration floor; its canonical
-  root model omits it and its scene supplies one. Its local descriptions remain
-  distinct from upstream Menagerie's G1 tuning/keyframes.
-- The additional G1 primitive model preserves the upstream MJX configuration as
-  a separate native pair. Its robot masks disable automatic contacts;
-  `scene_mjx.xml` supplies the explicit floor/self-contact pairs and saved poses.
-  Existing G1 source descriptions and runtime models are retained unchanged.
+- G1 offers standard Menagerie `g1.xml` with position servos and the
+  ProtoMotions boxfeet model with torque controls. Standard model and scene
+  bytes match the pinned upstream receipt. The former hand and MJX models,
+  scene contact pairs and saved poses are frozen under
+  `unitree_g1/provenance/retired_variants/`; they are outside the active catalog.
 - No `family.json`, revision/promotion framework, or application adapter is
   introduced. Native MuJoCo loads a copied family without global metadata.
 - Astro P2 body/default-model material is released under Apache-2.0, as directed

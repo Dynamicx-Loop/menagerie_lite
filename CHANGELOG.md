@@ -8,7 +8,8 @@
 - Group the active README gallery and native catalog into Humanoids and
   Miscellaneous, with D435i in Miscellaneous. Preserve the live viewer links
   and add D435i's published-main scene link. The active collection now has
-  seven models across five families; two legacy Astro P1 models remain retained.
+  six models across four families after integration with the G1 cleanup and
+  Atom P3 archive; two legacy Astro P1 models and archived Atom P3 remain retained.
 - Extend native validation to cover fixed zero-DoF models and include the
   camera family in source distributions.
 
