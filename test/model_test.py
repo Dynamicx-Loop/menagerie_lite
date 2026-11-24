@@ -115,7 +115,11 @@ class ModelTests(unittest.TestCase):
                 for path in runtime_paths:
                     with self.subTest(path=path.name):
                         model = mujoco.MjModel.from_xml_path(str(bundle / path.name))
-                        self.assertGreater(model.nq, 0)
+                        original = mujoco.MjModel.from_xml_path(str(path))
+                        self.assertGreater(model.ngeom, 0)
+                        self.assertEqual((model.nq, model.nv, model.nu, model.nbody, model.ngeom, model.nmesh),
+                                         (original.nq, original.nv, original.nu, original.nbody,
+                                          original.ngeom, original.nmesh))
 
     def test_robot_physics_matches_retained_imports(self):
         # Retained imports remain evidence, not editable native inputs.
@@ -136,6 +140,24 @@ class ModelTests(unittest.TestCase):
                 for attribute in ("geom_type", "geom_size", "geom_pos", "geom_quat", "geom_friction",
                                   "geom_contype", "geom_conaffinity"):
                     np.testing.assert_array_equal(getattr(model, attribute), getattr(source_model, attribute)[robot_geoms])
+
+
+class D435iTests(unittest.TestCase):
+    def test_imported_bundle_matches_upstream_hashes(self):
+        family = ROOT / "realsense_d435i"
+        record = json.loads((family / "provenance/menagerie.json").read_text())
+        for item in record["files"] + record["assets"]:
+            with self.subTest(path=item["file"]):
+                self.assertEqual(hashlib.sha256((family / item["file"]).read_bytes()).hexdigest(),
+                                 item["sha256"])
+
+    def test_fixed_camera_asset_retains_upstream_geometry(self):
+        model = mujoco.MjModel.from_xml_path(str(ROOT / "realsense_d435i/d435i.xml"))
+        self.assertEqual((model.nq, model.nv, model.nu, model.ncam, model.nsensor), (0, 0, 0, 0, 0))
+        self.assertEqual((model.nmesh, model.ngeom), (9, 10))
+        self.assertAlmostEqual(float(model.body("d435i").mass[0]), 0.072)
+        self.assertEqual(int((model.geom_group == 2).sum()), 9)
+        self.assertEqual(int((model.geom_group == 3).sum()), 1)
 
 
 class G1StandardTests(unittest.TestCase):

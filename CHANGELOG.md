@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-13
+
+- Import MuJoCo Menagerie's Apache-2.0 RealSense D435i family with its original
+  model, meshes, preview and notices; record the pinned source hashes and add
+  a local viewing scene with a light and lowered floor.
+- Group the active README gallery and native catalog into Humanoids and
+  Miscellaneous, with D435i in Miscellaneous. Preserve the live viewer links
+  and add D435i's published-main scene link. The active collection now has
+  seven models across five families; two legacy Astro P1 models remain retained.
+- Extend native validation to cover fixed zero-DoF models and include the
+  camera family in source distributions.
+
 ## 2026-10-30
 
 - Shrink the alternative Astro hand collider to the compact G1 palm reference.

@@ -13,6 +13,7 @@ assets rather than replacing the repository with an upstream fork.
 | `test/model_test.py`, `test/model_dir_test.py` | Adapt upstream native control/no-warning and layout checks to unittest and the retained local inventory. Apache-2.0 headers retained. |
 | Family `scene*.xml` | Presentation structure adapted from `unitree_g1/scene.xml`, using local model references, names, and ground heights. Upstream G1 license retained in `LICENSES/MuJoCo-Menagerie-G1.txt`. |
 | `unitree_g1/g1.xml`, `unitree_g1/scene.xml` | Exact standard G1 model and scene copied from upstream revision `370c43965323c0944b433b202aac5058b5f907a9`, including position servos, automatic contacts and the `stand` keyframe. Actual notice in `unitree_g1/LICENSE.Menagerie`; hashes in `unitree_g1/provenance/menagerie.json`. The earlier MJX configuration is frozen under `unitree_g1/provenance/retired_variants/`; MJX runtime support remains deferred. |
+| `realsense_d435i/` | Complete D435i family copied from upstream revision `370c43965323c0944b433b202aac5058b5f907a9`, with unchanged model, meshes, preview and upstream notices. Upstream has no scene; a local wrapper supplies a light and lowered floor. Local scope in `realsense_d435i/LICENSING.md`; source hashes in `realsense_d435i/provenance/menagerie.json`. |
 | `Makefile`, `.pre-commit-config.yaml`, `.github/workflows/build.yml` | Adapt upstream development and native validation patterns; browser compatibility is deferred. |
 | Family README/changelog and root docs | Follow upstream organization using local inventory, notices, and provenance. |
 
@@ -22,7 +23,9 @@ with each family; see [LICENSING.md](LICENSING.md).
 
 ## Native ownership and preservation
 
-- The active collection has seven models across four families. Astro P1's two
+- The active collection has seven models across five families, classified as
+  Humanoids or Miscellaneous using upstream category values. D435i is a fixed,
+  zero-DoF asset without simulated camera or IMU definitions. Astro P1's two
   models are retained in `LEGACY_MODEL_MAP` and receive native checks until
   later retirement; they are excluded from the active gallery.
 - Astro P2 is one family with two maintained model/scene pairs: default

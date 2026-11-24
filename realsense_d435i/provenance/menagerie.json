@@ -1,0 +1,97 @@
+{
+  "upstream_repository": "https://github.com/google-deepmind/mujoco_menagerie",
+  "revision": "370c43965323c0944b433b202aac5058b5f907a9",
+  "upstream_family": "realsense_d435i",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "file": "provenance/CHANGELOG.upstream.md",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/CHANGELOG.md",
+      "sha256": "fe6b656e38dafbc2c8bb1a76c308e31888d9862e8fc950404592f46b4a866a4d",
+      "git_blob": "bc7e3c11ec836c66670bba66ef2c75ab0cfda5b8"
+    },
+    {
+      "file": "LICENSE",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/LICENSE",
+      "sha256": "1c72ac904e86caaa9dbf1740d8d4737264712699e8a7f416cfe15591f21a2cbf",
+      "git_blob": "5444cbd69d6a7df733e6b6c4b0652174c9e2ace2"
+    },
+    {
+      "file": "README.md",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/README.md",
+      "sha256": "a3b3a71e2d2868fda3a1f7f1c79b88a3b0b726e0710b282c177f790fd6545474",
+      "git_blob": "0f46a001df2ffb52a0264d537fb20af2d84153f7"
+    },
+    {
+      "file": "d435i.png",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/d435i.png",
+      "sha256": "df2f40eb6aa9893ee950795426ec70a4f7d6babe150563efe5fcd30d0e2969c7",
+      "git_blob": "b5cf9281de207f17f500ded8bba6bfd5ab4301f4"
+    },
+    {
+      "file": "d435i.xml",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/d435i.xml",
+      "sha256": "2282fd6d0844931ac6a70f5cca32f62341b15c9c4bd118c20a69137b9a40134d",
+      "git_blob": "c8ef1e96b3a05fdc83810514d2425e119e3514ed"
+    }
+  ],
+  "local_changes": [
+    "Added scene.xml, CHANGELOG.md and LICENSING.md; upstream CHANGELOG.md preserved as provenance/CHANGELOG.upstream.md."
+  ],
+  "assets": [
+    {
+      "file": "assets/d435i_0.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_0.obj",
+      "sha256": "dbaa9c4f2762320875ccc23f162df8d0879910611bbc4a53c677cc381642301e",
+      "git_blob": "2b5d9c74ec3efcbd4ba31f374be5553647de0c5e"
+    },
+    {
+      "file": "assets/d435i_1.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_1.obj",
+      "sha256": "5ee79cc2bfee84b91ae9d04b508f6a4cd3a1caae989114d9ab043fbde6ac6d41",
+      "git_blob": "f9af9ee7bd02de80e297b0b8808983d096abe18d"
+    },
+    {
+      "file": "assets/d435i_2.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_2.obj",
+      "sha256": "2835a8c85afde2b561f01da2c722537637a1c3309b1b9577dfda093f26936dec",
+      "git_blob": "cdf011e0ab2e46e98a807b53b1b31ec51d9ecc6d"
+    },
+    {
+      "file": "assets/d435i_3.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_3.obj",
+      "sha256": "cc6448c05f215b02f04c1960748b2bd5ef51c276e40f327c3b9e0e012e6b61b8",
+      "git_blob": "1fee4acf8f1f53f86cee029d5499c4b5e0c6dc3f"
+    },
+    {
+      "file": "assets/d435i_4.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_4.obj",
+      "sha256": "bbc952be30c194decf1e86d107edeeb5dfa3dd96f972202f5a99ebbd0b39b701",
+      "git_blob": "1f71bb357ad2e596248617e26dbaa25954b11158"
+    },
+    {
+      "file": "assets/d435i_5.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_5.obj",
+      "sha256": "8495497738082c23f481b7809ed365bdfdc8f05717da9030880c0091d1440c05",
+      "git_blob": "54cbad77e8d79786229ff0c90db9208ee68be30e"
+    },
+    {
+      "file": "assets/d435i_6.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_6.obj",
+      "sha256": "1f3733f318d55cbea0f6968596881454eb0902c74b85aa846e45f02a1efd26e7",
+      "git_blob": "7bffca4a165074391b0c80dcdf78f8e25aa1f055"
+    },
+    {
+      "file": "assets/d435i_7.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_7.obj",
+      "sha256": "da2592b7c9dacc653cbfbbb6e47ddde74bfd76bb3d7627c4b7a145b4984a0c62",
+      "git_blob": "5e365a6883061854180280381a967cd3aacbeb8e"
+    },
+    {
+      "file": "assets/d435i_8.obj",
+      "source_url": "https://github.com/google-deepmind/mujoco_menagerie/blob/370c43965323c0944b433b202aac5058b5f907a9/realsense_d435i/assets/d435i_8.obj",
+      "sha256": "fc882d749abb4392d89b02fcc4c12b7b857899b32d88e9d98cc19f66253ecd90",
+      "git_blob": "6c7bc6cfb34fa4bef32fcb3251cb8df1cb9d362d"
+    }
+  ]
+}

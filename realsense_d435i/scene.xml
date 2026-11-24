@@ -1,0 +1,8 @@
+<mujoco model="d435i scene">
+  <include file="d435i.xml"/>
+
+  <worldbody>
+    <light pos="0 0 1" dir="0 0 -1" directional="true"/>
+    <geom name="floor" type="plane" pos="0 0 -0.05" size="0 0 0.05"/>
+  </worldbody>
+</mujoco>

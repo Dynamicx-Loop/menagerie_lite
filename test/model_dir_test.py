@@ -18,11 +18,11 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-from catalog import MODEL_MAP, LEGACY_MODEL_MAP, PREVIEW_OVERRIDES, model_entries
+from catalog import MODEL_MAP, LEGACY_MODEL_MAP, PREVIEW_OVERRIDES, ModelType, model_entries
 from format_xml import format_xml
 
 ROOT = Path(__file__).resolve().parents[1]
-FAMILIES = {"astro_p1", "astro_p2", "atom_p3", "soma23", "unitree_g1"}
+FAMILIES = {"astro_p1", "astro_p2", "atom_p3", "soma23", "unitree_g1", "realsense_d435i"}
 
 
 class ModelDirectoryTests(unittest.TestCase):
@@ -36,8 +36,8 @@ class ModelDirectoryTests(unittest.TestCase):
     def test_catalog_and_family_layout(self):
         entries = list(model_entries())
         self.assertEqual({entry["family"] for entry in entries}, FAMILIES)
-        self.assertEqual(len(entries), 8)
-        self.assertEqual(len(MODEL_MAP), 6)
+        self.assertEqual(len(entries), 9)
+        self.assertEqual(len(MODEL_MAP), 7)
         self.assertEqual(len(LEGACY_MODEL_MAP), 2)
         self.assertFalse(set(MODEL_MAP) & set(LEGACY_MODEL_MAP))
         self.assertTrue(all(key.startswith("astro_p1/") for key in LEGACY_MODEL_MAP))
@@ -70,6 +70,13 @@ class ModelDirectoryTests(unittest.TestCase):
                                  [{"model": assets[0].get("name"), "prefix": ""}])
             else:
                 self.assertEqual([node.get("file") for node in scene.findall("include")], [entry["model"].name])
+
+    def test_active_models_use_humanoid_and_miscellaneous_categories(self):
+        self.assertEqual({kind.name for kind in MODEL_MAP.values()}, {"HUMANOID", "MISC"})
+        self.assertEqual({name for name, kind in MODEL_MAP.items() if kind.name == "MISC"},
+                         {"realsense_d435i/d435i"})
+        self.assertTrue(all(kind == ModelType.HUMANOID for name, kind in MODEL_MAP.items()
+                            if not name.startswith("realsense_d435i/")))
 
     def test_maintained_xml_style(self):
         paths = set()

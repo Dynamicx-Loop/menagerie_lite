@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parent
 
 class ModelType(int, enum.Enum):
     HUMANOID = 7
+    MISC = 10
 
 
 MODEL_MAP = {
@@ -35,6 +36,7 @@ MODEL_MAP = {
     "soma23/soma23_free_base": ModelType.HUMANOID,
     "unitree_g1/g1": ModelType.HUMANOID,
     "unitree_g1/unitree_g1_29dof_box_feet": ModelType.HUMANOID,
+    "realsense_d435i/d435i": ModelType.MISC,
 }
 
 # Retained for native loading checks; these models are scheduled for retirement.

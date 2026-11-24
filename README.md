@@ -2,10 +2,11 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/notAnyrobot/menagerie_x/build.yml?branch=main)](https://github.com/notAnyrobot/menagerie_x/actions/workflows/build.yml)
 
-**Menagerie X** is a collection of robot models for the
+**Menagerie X** is a collection of robot and sensor models for the
 [MuJoCo](https://github.com/google-deepmind/mujoco) physics engine. Its organization
 follows [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie),
-with four active robot families and eight native MJCF models. Astro P1 is
+with seven active native MJCF models across five families, grouped into
+Humanoids and Miscellaneous. Astro P1 is
 retained separately as legacy, pending retirement.
 
 Each model directory contains the robot description, a scene, local assets,
@@ -112,20 +113,27 @@ make all
 
 ## Menagerie Models
 
-**Humanoids.** DoF counts exclude the floating base. Click a preview to open its
-scene XML, or a model name for its description. Images are native renders with
-collision overlays hidden and no simulation stepping. The standard G1 preview
-uses its `stand` keyframe; other previews use reference initialization.
-Collision alternatives can share the same visual appearance.
+DoF counts exclude the floating base. Click a preview to open its
+scene in [MuJoCo Live](https://live.mujoco.org/), or a model name for its description.
+Viewer links load the latest published `main` branch.
+The online viewer may start simulating immediately. Use **Pause**, then **Reset**
+for pose inspection; a free humanoid may fall without a balancing controller.
+
+### Humanoids
+
+Humanoid previews are native renders with collision overlays hidden and no
+simulation stepping. The standard G1 preview uses its `stand` keyframe; other
+humanoid previews use reference initialization. Collision alternatives can
+share the same visual appearance.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="astro_p2/scene.xml"><img src="astro_p2/astro_p2.png" alt="Astro P2" width="120"></a> | [Astro P2](astro_p2/README.md) | 29 | [Apache-2.0](astro_p2/LICENSE) |
-| <a href="astro_p2/scene_with_hands.xml"><img src="astro_p2/astro_p2_with_hands.png" alt="Astro P2 with hands" width="120"></a> | [Astro P2 with hands](astro_p2/README.md) | 43 | [Apache-2.0 body; BSD-3-Clause hands](astro_p2/LICENSING.md) |
-| <a href="atom_p3/scene.xml"><img src="atom_p3/atom_p3_27dof.png" alt="Atom P3" width="120"></a> | [Atom P3](atom_p3/README.md) | 27 | [Unresolved](atom_p3/LICENSING.md) |
-| <a href="soma23/scene.xml"><img src="soma23/soma23_free_base.png" alt="SOMA-23" width="120"></a> | [SOMA-23](soma23/README.md) | 66 | [Apache-2.0](soma23/LICENSE.ProtoMotions) |
-| <a href="unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
-| <a href="unitree_g1/scene_29dof_box_feet.xml"><img src="unitree_g1/unitree_g1_29dof_box_feet.png" alt="Unitree G1 with box feet" width="120"></a> | [Unitree G1 with box feet](unitree_g1/README.md) | 29 | [Apache-2.0 model; BSD-3-Clause meshes](unitree_g1/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/astro_p2/scene.xml"><img src="astro_p2/astro_p2.png" alt="Astro P2" width="120"></a> | [Astro P2](astro_p2/README.md) | 29 | [Apache-2.0](astro_p2/LICENSE) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/astro_p2/scene_with_hands.xml"><img src="astro_p2/astro_p2_with_hands.png" alt="Astro P2 with hands" width="120"></a> | [Astro P2 with hands](astro_p2/README.md) | 43 | [Apache-2.0 body; BSD-3-Clause hands](astro_p2/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/atom_p3/scene.xml"><img src="atom_p3/atom_p3_27dof.png" alt="Atom P3" width="120"></a> | [Atom P3](atom_p3/README.md) | 27 | [Unresolved](atom_p3/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/soma23/scene.xml"><img src="soma23/soma23_free_base.png" alt="SOMA-23" width="120"></a> | [SOMA-23](soma23/README.md) | 66 | [Apache-2.0](soma23/LICENSE.ProtoMotions) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/unitree_g1/scene_29dof_box_feet.xml"><img src="unitree_g1/unitree_g1_29dof_box_feet.png" alt="Unitree G1 with box feet" width="120"></a> | [Unitree G1 with box feet](unitree_g1/README.md) | 29 | [Apache-2.0 model; BSD-3-Clause meshes](unitree_g1/LICENSING.md) |
 
 Astro P2 has a fixed-head, 29-DoF body. Dex3-1 adds 14 finger joints
 (43 total). The default model now carries the maintainer-approved collision
@@ -141,6 +149,16 @@ The standard G1 model is imported from MuJoCo Menagerie and uses position
 targets in radians. The ProtoMotions box-feet model uses torque controls.
 Both have 29 body joints and fixed rubber hands; see the
 [G1 description](unitree_g1/README.md) for their control and collision details.
+
+### Miscellaneous
+
+| Preview | Name | DoFs | License |
+| :---: | --- | --- | --- |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
+
+The D435i model and preview image are imported from MuJoCo Menagerie. It is a
+fixed geometry and collision model and does not define camera image streams
+or IMU sensors.
 
 ## Legacy Models
 
