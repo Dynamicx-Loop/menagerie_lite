@@ -15,6 +15,7 @@
 """Layout and style checks adapted from upstream model_dir_test.py."""
 
 from pathlib import Path
+import json
 import unittest
 import xml.etree.ElementTree as ET
 
@@ -22,7 +23,7 @@ from catalog import MODEL_MAP, LEGACY_MODEL_MAP, PREVIEW_OVERRIDES, ModelType, m
 from format_xml import format_xml
 
 ROOT = Path(__file__).resolve().parents[1]
-FAMILIES = {"astro_p1", "astro_p2", "atom_p3", "soma23", "unitree_g1", "realsense_d435i"}
+FAMILIES = {"astro_p1", "lumo", "atom_p3", "soma23", "unitree_g1", "realsense_d435i"}
 
 
 class ModelDirectoryTests(unittest.TestCase):
@@ -37,15 +38,15 @@ class ModelDirectoryTests(unittest.TestCase):
         entries = list(model_entries())
         self.assertEqual({entry["family"] for entry in entries}, FAMILIES)
         self.assertEqual(len(entries), 9)
-        self.assertEqual(len(MODEL_MAP), 6)
-        self.assertEqual(len(LEGACY_MODEL_MAP), 3)
+        self.assertEqual(len(MODEL_MAP), 5)
+        self.assertEqual(len(LEGACY_MODEL_MAP), 4)
         self.assertFalse(set(MODEL_MAP) & set(LEGACY_MODEL_MAP))
-        self.assertEqual({key.split("/")[0] for key in LEGACY_MODEL_MAP}, {"astro_p1", "atom_p3"})
-        self.assertEqual({entry["family"] for entry in model_entries(include_legacy=False)}, FAMILIES - {"astro_p1", "atom_p3"})
+        self.assertEqual({key.split("/")[0] for key in LEGACY_MODEL_MAP}, {"astro_p1", "atom_p3", "soma23"})
+        self.assertEqual({entry["family"] for entry in model_entries(include_legacy=False)}, FAMILIES - {"astro_p1", "atom_p3", "soma23"})
         self.assertTrue(set(PREVIEW_OVERRIDES).issubset(set(MODEL_MAP) | set(LEGACY_MODEL_MAP)))
         self.assertEqual(len({entry["scene"] for entry in entries}), len(entries))
-        self.assertEqual({entry["model"].name for entry in entries if entry["family"] == "astro_p2"},
-                         {"astro_p2.xml", "astro_p2_with_hands.xml"})
+        self.assertEqual({entry["model"].name for entry in entries if entry["family"] == "lumo"},
+                         {"lumo.xml", "lumo_with_hands.xml"})
         for family in FAMILIES:
             for name in ("README.md", "CHANGELOG.md", "LICENSING.md", "scene.xml"):
                 self.assertTrue((ROOT / family / name).is_file(), f"{family}/{name}")
@@ -70,6 +71,16 @@ class ModelDirectoryTests(unittest.TestCase):
                                  [{"model": assets[0].get("name"), "prefix": ""}])
             else:
                 self.assertEqual([node.get("file") for node in scene.findall("include")], [entry["model"].name])
+
+    def test_application_metadata_uses_lumo_and_archived_statuses(self):
+        manifest = json.loads((ROOT / "manifest.json").read_text())
+        self.assertEqual(manifest["default_variant"], "lumo")
+        self.assertNotIn("astro_p2", manifest["variants"])
+        self.assertEqual(manifest["variants"]["lumo"]["status"], "current")
+        self.assertEqual({e["mjcf"] for e in manifest["variants"]["lumo"]["editions"].values()},
+                         {"lumo.xml", "lumo_mjlab.xml", "lumo_with_hands.xml"})
+        for family in ("astro_p1", "soma23", "atom_p3"):
+            self.assertEqual(manifest["variants"][family]["status"], "archived")
 
     def test_active_models_use_humanoid_and_miscellaneous_categories(self):
         self.assertEqual({kind.name for kind in MODEL_MAP.values()}, {"HUMANOID", "MISC"})

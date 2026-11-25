@@ -26,7 +26,7 @@ class Soma23CatalogTests(unittest.TestCase):
         edition = entry["editions"]["free_base"]
         provenance = edition["source_provenance"]
 
-        self.assertEqual(entry["status"], "imported")
+        self.assertEqual(entry["status"], "archived")
         self.assertEqual(edition["urdf"], None)
         self.assertEqual(provenance["repository"], "https://github.com/NVlabs/ProtoMotions")
         self.assertEqual(provenance["revision"], PROTOMOTIONS_REVISION)

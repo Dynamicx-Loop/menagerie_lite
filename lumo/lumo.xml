@@ -1,0 +1,55 @@
+<mujoco model="lumo">
+  <!-- SPDX-License-Identifier: Apache-2.0 AND BSD-3-Clause -->
+  <!-- Position-servo default; geometry and contacts are shared with the unactuated model. -->
+  <asset>
+    <model name="lumo_base" file="lumo_mjlab.xml"/>
+  </asset>
+  <worldbody>
+    <attach model="lumo_base" prefix=""/>
+  </worldbody>
+
+  <option timestep="0.002" integrator="implicitfast"/>
+
+  <default>
+    <default class="lumo_position">
+      <position kp="500" dampratio="1" inheritrange="1"/>
+    </default>
+  </default>
+
+  <actuator>
+    <position class="lumo_position" name="left_hip_pitch_joint" joint="left_hip_pitch_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="left_hip_roll_joint" joint="left_hip_roll_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="left_hip_yaw_joint" joint="left_hip_yaw_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="left_knee_joint" joint="left_knee_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" forcerange="-60 60"/>
+    <position class="lumo_position" name="left_ankle_roll_joint" joint="left_ankle_roll_joint" forcerange="-45 45"/>
+    <position class="lumo_position" name="right_hip_pitch_joint" joint="right_hip_pitch_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="right_hip_roll_joint" joint="right_hip_roll_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="right_hip_yaw_joint" joint="right_hip_yaw_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="right_knee_joint" joint="right_knee_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" forcerange="-60 60"/>
+    <position class="lumo_position" name="right_ankle_roll_joint" joint="right_ankle_roll_joint" forcerange="-45 45"/>
+    <position class="lumo_position" name="waist_yaw_joint" joint="waist_yaw_joint" forcerange="-130 130"/>
+    <position class="lumo_position" name="waist_pitch_joint" joint="waist_pitch_joint" forcerange="-60 60"/>
+    <position class="lumo_position" name="waist_roll_joint" joint="waist_roll_joint" forcerange="-50 50"/>
+    <position class="lumo_position" name="left_shoulder_pitch_joint" joint="left_shoulder_pitch_joint"
+      forcerange="-30 30"/>
+    <position class="lumo_position" name="left_shoulder_roll_joint" joint="left_shoulder_roll_joint"
+      forcerange="-30 30"/>
+    <position class="lumo_position" name="left_shoulder_yaw_joint" joint="left_shoulder_yaw_joint" forcerange="-30 30"/>
+    <position class="lumo_position" name="left_elbow_joint" joint="left_elbow_joint" forcerange="-30 30"/>
+    <position class="lumo_position" name="left_wrist_roll_joint" joint="left_wrist_roll_joint" forcerange="-30 30"/>
+    <position class="lumo_position" name="left_wrist_pitch_joint" joint="left_wrist_pitch_joint" forcerange="-10 10"/>
+    <position class="lumo_position" name="left_wrist_yaw_joint" joint="left_wrist_yaw_joint" forcerange="-10 10"/>
+    <position class="lumo_position" name="right_shoulder_pitch_joint" joint="right_shoulder_pitch_joint"
+      forcerange="-30 30"/>
+    <position class="lumo_position" name="right_shoulder_roll_joint" joint="right_shoulder_roll_joint"
+      forcerange="-30 30"/>
+    <position class="lumo_position" name="right_shoulder_yaw_joint" joint="right_shoulder_yaw_joint"
+      forcerange="-30 30"/>
+    <position class="lumo_position" name="right_elbow_joint" joint="right_elbow_joint" forcerange="-30 30"/>
+    <position class="lumo_position" name="right_wrist_roll_joint" joint="right_wrist_roll_joint" forcerange="-30 30"/>
+    <position class="lumo_position" name="right_wrist_pitch_joint" joint="right_wrist_pitch_joint" forcerange="-10 10"/>
+    <position class="lumo_position" name="right_wrist_yaw_joint" joint="right_wrist_yaw_joint" forcerange="-10 10"/>
+  </actuator>
+</mujoco>

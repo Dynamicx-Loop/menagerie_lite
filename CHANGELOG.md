@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-24
+
+- Preserve the unactuated Lumo model as `lumo_mjlab.xml`; make `lumo.xml` the
+  position-actuated gallery default, retaining native effort limits and the
+  unchanged hands variant.
+- Archive Astro P1 and SOMA-23, and rename the active Astro P2 family to Lumo.
+
 ## 2026-11-13
 
 - Import MuJoCo Menagerie's Apache-2.0 RealSense D435i family with its original

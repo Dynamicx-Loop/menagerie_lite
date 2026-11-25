@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-24
+
+- Preserve the existing unactuated model byte-for-byte as `lumo_mjlab.xml`.
+  Add 29 G1-style position servos in `lumo.xml` using Lumo torque limits; use
+  implicitfast at 0.002 s in the default model and scene. Keep the hands variant,
+  physical descriptions, assets and reference previews unchanged.
+- Rename the active Astro P2 family to Lumo; preserve source snapshots and physical definitions.
+
 ## 2026-11-13
 
 - Match the articulated-hand model's 50 non-hand colliders to the approved

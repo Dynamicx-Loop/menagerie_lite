@@ -1,5 +1,5 @@
 {
-  "default_variant": "astro_p2",
+  "default_variant": "lumo",
   "legacy_variant_aliases": {
     "astro_p1_27dof": {
       "variant": "astro_p1",
@@ -61,7 +61,7 @@
     "astro_p1": {
       "default_edition": "30dof",
       "default_scene": "flat_floor",
-      "notes": "Legacy Astro P1; retained for reference and scheduled for retirement. Not part of the active collection.",
+      "notes": "Archived Astro P1; retained for reference outside the active collection.",
       "spawn": {
         "rpy": [
           0.0,
@@ -75,7 +75,7 @@
           0.75
         ]
       },
-      "status": "legacy",
+      "status": "archived",
       "editions": {
         "30dof": {
           "base_mode": "free",
@@ -103,59 +103,10 @@
         }
       }
     },
-    "astro_p2": {
-      "default_edition": "rubber_hands",
-      "default_scene": "flat_floor",
-      "status": "current",
-      "notes": "Fixed-head 29-DoF Astro P2, with an optional Dex3-1 variant. Astro body/default model: Apache-2.0. Native MJCF is maintained; URDF compatibility is deferred.",
-      "spawn": {
-        "scene_frame": "robot_spawn",
-        "xyz": [
-          0.0,
-          0.0,
-          0.75
-        ],
-        "rpy": [
-          0.0,
-          0.0,
-          0.0
-        ]
-      },
-      "editions": {
-        "rubber_hands": {
-          "base_mode": "free",
-          "dof": 29,
-          "label": "Astro P2 (29 DoF)",
-          "mjcf": "astro_p2.xml",
-          "urdf": null,
-          "notes": "Refined fixed-head Astro P2 model with original Astro geometry and inertias.",
-          "source_provenance": {
-            "license": "Apache-2.0",
-            "license_file": "LICENSE",
-            "details": "provenance/rubber_hands.json"
-          }
-        },
-        "dex3_1": {
-          "base_mode": "free",
-          "dof": 43,
-          "label": "Astro P2 with hands (43 DoF)",
-          "mjcf": "astro_p2_with_hands.xml",
-          "urdf": null,
-          "notes": "Preserved Dex3-1 sample mounting and native fist keyframe; same refined 29-joint body.",
-          "source_provenance": {
-            "repository": "https://github.com/unitreerobotics/unitree_ros",
-            "revision": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
-            "license": "BSD-3-Clause (Unitree hands); Apache-2.0 (Astro body)",
-            "license_file": "LICENSE.Unitree",
-            "details": "provenance/dex3_1/SOURCE.json"
-          }
-        }
-      }
-    },
     "soma23": {
       "default_edition": "free_base",
       "default_scene": "flat_floor",
-      "notes": "SOMA-23 free-base humanoid imported faithfully from ProtoMotions.",
+      "notes": "Archived SOMA-23 free-base humanoid; retained for reference outside the active collection.",
       "spawn": {
         "rpy": [
           0.0,
@@ -169,7 +120,7 @@
           1.0
         ]
       },
-      "status": "imported",
+      "status": "archived",
       "editions": {
         "free_base": {
           "base_mode": "free",
@@ -255,6 +206,75 @@
             "source_sha256": "ec0b539bb554e00f07732482e043ced07e25ebccff63c6f5a713a0d55df1bc16",
             "packaged_path": "unitree_g1_29dof_box_feet.xml",
             "packaging_note": "Preexisting local import adds the missing torso IMU site and adapts mesh paths; native XML is formatted with family-local assets. Physical/control definitions are preserved."
+          }
+        }
+      }
+    },
+    "lumo": {
+      "default_edition": "rubber_hands",
+      "default_scene": "flat_floor",
+      "status": "current",
+      "notes": "Fixed-head 29-DoF Lumo with a position-actuated gallery default, an unactuated MJLab-style base, and the unchanged unactuated Dex3-1 variant. Lumo physical model: Apache-2.0; adapted default servos: BSD-3-Clause. URDF and MJLab runtime integration are deferred.",
+      "spawn": {
+        "scene_frame": "robot_spawn",
+        "xyz": [
+          0.0,
+          0.0,
+          0.75
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "editions": {
+        "rubber_hands": {
+          "base_mode": "free",
+          "dof": 29,
+          "label": "Lumo (29 DoF)",
+          "mjcf": "lumo.xml",
+          "urdf": null,
+          "notes": "29 position targets in radians, kp=500 and dampratio=1; native joint effort limits retained. Attaches lumo_mjlab.xml. These gains are an initial simulation configuration.",
+          "source_provenance": {
+            "license": "Apache-2.0 (Lumo physical model); BSD-3-Clause (adapted position-servo configuration)",
+            "license_file": "LICENSING.md",
+            "details": "provenance/rubber_hands.json",
+            "actuation_source": {
+              "repository": "https://github.com/google-deepmind/mujoco_menagerie",
+              "revision": "370c43965323c0944b433b202aac5058b5f907a9",
+              "source_path": "unitree_g1/g1.xml",
+              "license": "BSD-3-Clause",
+              "license_file": "LICENSE.Menagerie"
+            }
+          }
+        },
+        "mjlab": {
+          "base_mode": "free",
+          "dof": 29,
+          "label": "Lumo MJLab-style base (29 DoF, unactuated)",
+          "mjcf": "lumo_mjlab.xml",
+          "urdf": null,
+          "notes": "Original unactuated Lumo physical model, preserved byte-for-byte; no actuators or gains. MJLab runtime configuration and validation are separate.",
+          "source_provenance": {
+            "license": "Apache-2.0",
+            "license_file": "LICENSE",
+            "details": "provenance/rubber_hands.json"
+          }
+        },
+        "dex3_1": {
+          "base_mode": "free",
+          "dof": 43,
+          "label": "Lumo with hands (43 DoF)",
+          "mjcf": "lumo_with_hands.xml",
+          "urdf": null,
+          "notes": "Preserved Dex3-1 sample mounting and native fist keyframe; same refined 29-joint body.",
+          "source_provenance": {
+            "repository": "https://github.com/unitreerobotics/unitree_ros",
+            "revision": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+            "license": "BSD-3-Clause (Unitree hands); Apache-2.0 (Astro body)",
+            "license_file": "LICENSE.Unitree",
+            "details": "provenance/dex3_1/SOURCE.json"
           }
         }
       }

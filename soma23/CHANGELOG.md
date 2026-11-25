@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-24
+
+- Archive SOMA-23; retain assets and native checks.
+
 ## 2026-10-30
 
 - Match the upstream README structure and add native model preview images,

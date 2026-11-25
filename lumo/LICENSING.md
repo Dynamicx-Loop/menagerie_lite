@@ -1,10 +1,11 @@
 # Licensing and provenance
 
-## Astro P2 — Apache-2.0
+## Lumo — Apache-2.0
 
-The Astro P2 body model, default model, and Astro-origin meshes and descriptions
+The Lumo physical model, unactuated base, and Astro-origin meshes and descriptions
 are released under the [Apache License, Version 2.0](LICENSE). This covers the
-Astro body shared by `astro_p2.xml` and `astro_p2_with_hands.xml`, the default
+Astro body in `lumo_mjlab.xml`, attached by `lumo.xml` and shared with
+`lumo_with_hands.xml`, the default
 model's original Astro hand material, and the corresponding Astro-origin
 source descriptions retained under `provenance/`.
 
@@ -12,10 +13,19 @@ The retired simplified robot snapshot under
 [provenance/retired_simplified/](provenance/retired_simplified/README.md) also
 remains Astro Apache-2.0 material. Retirement does not change its asset terms.
 
+## Default position-servo configuration
+
+The `lumo.xml` actuation wrapper follows the position-servo layout and settings
+of standard MuJoCo Menagerie G1 at revision
+`370c43965323c0944b433b202aac5058b5f907a9`, with Lumo joint names and effort limits.
+The retained [Menagerie BSD-3-Clause notice](LICENSE.Menagerie) covers that
+adapted configuration; it does not change the Apache-2.0 terms for the shared
+Lumo physical model or Astro meshes.
+
 ## Third-party hand material
 
 Unitree Dex3-1 hand definitions and meshes retain the
-[BSD-3-Clause terms](LICENSE.Unitree). The complete `astro_p2_with_hands.xml`
+[BSD-3-Clause terms](LICENSE.Unitree). The complete `lumo_with_hands.xml`
 combines Apache-2.0 Astro body material with BSD-3-Clause Unitree hand material;
 both notices apply. Unitree hand meshes are the sixteen
 `assets/{left,right}_hand_{palm,thumb_*,index_*,middle_*}_link.STL` files.
@@ -46,7 +56,7 @@ Original conversion reports, URDFs, source XML, and documentation are preserved
 byte-for-byte under `provenance/29dof/` and `provenance/dex3_1/`.
 `provenance/migration.json` records their hashes. Historical licensing notes
 reflect their recording date; this Apache-2.0 grant supplies the current terms
-for Astro P2 material and does not change any third-party terms.
+for Lumo material and does not change any third-party terms.
 
 [Repository licensing](../LICENSING.md) identifies the terms for the rest of the
-collection. No whole-repository license is implied by the Astro P2 grant.
+collection. No whole-repository license is implied by the Lumo grant.

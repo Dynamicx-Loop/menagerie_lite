@@ -32,7 +32,7 @@ without advancing simulation.
 
 ## MJCF derivation steps
 
-1. Started from the retained [Astro 29-DoF body](../astro_p2_29dof/README.md) and pinned official Dex3-1 URDFs in `upstream/`.
+1. Started from the retained [Astro 29-DoF body](../29dof/README.md) and pinned official Dex3-1 URDFs in `upstream/`.
 2. Attached the palms at the existing hand frames using sample fixed joints, preserving vendor finger transforms, limits, and inertias.
 3. Converted matching cylinder/sphere assemblies to native capsules and disabled inertia inference.
 4. Applied the documented MJCF-only shin, torso, arm, pelvis, palm, and thumb collision refinements; retained the earlier URDF geometry separately.

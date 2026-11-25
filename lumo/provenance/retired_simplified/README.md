@@ -1,7 +1,7 @@
 # Retired Astro P2 simplified collision variant
 
 Retired on 2026-10-31 after the maintainer approved the collision design in
-[`astro_p2.xml`](../../astro_p2.xml). Use that model and
+[`astro_p2.xml`](../../lumo.xml). Use that model and
 [`scene.xml`](../../scene.xml) for the maintained fixed-hand configuration.
 
 This folder preserves the final simplified model, scene, previews and

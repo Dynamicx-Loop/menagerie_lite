@@ -221,6 +221,63 @@ class G1StandardTests(unittest.TestCase):
             self.assertEqual(int(boxes.sum()), 1)
 
 
+class LumoActuationTests(unittest.TestCase):
+    def test_gallery_default_has_position_servos_for_each_body_joint(self):
+        for filename in ("lumo.xml", "scene.xml"):
+            with self.subTest(filename=filename):
+                model = mujoco.MjModel.from_xml_path(str(ROOT / "lumo" / filename))
+                self.assertEqual((model.nq, model.nv, model.nu), (36, 35, 29))
+                hinges = np.flatnonzero(model.jnt_type == mujoco.mjtJoint.mjJNT_HINGE)
+                np.testing.assert_array_equal(model.actuator_trnid[:, 0], hinges)
+                self.assertEqual([model.actuator(i).name for i in range(model.nu)],
+                                 [model.joint(int(i)).name for i in hinges])
+                np.testing.assert_array_equal(model.actuator_gainprm[:, 0], np.full(29, 500.0))
+                np.testing.assert_array_equal(model.actuator_biasprm[:, 1], np.full(29, -500.0))
+                self.assertTrue(np.all(model.actuator_biasprm[:, 2] < 0))
+                self.assertEqual(model.opt.integrator, mujoco.mjtIntegrator.mjINT_IMPLICITFAST)
+                self.assertAlmostEqual(model.opt.timestep, 0.002)
+
+    def test_position_targets_and_effort_caps_use_lumo_joint_limits(self):
+        base = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo_mjlab.xml"))
+        model = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo.xml"))
+        self.assertTrue(np.all(model.actuator_ctrllimited))
+        self.assertTrue(np.all(model.actuator_forcelimited))
+        for actuator_id in range(model.nu):
+            joint_id = int(model.actuator_trnid[actuator_id, 0])
+            joint = base.joint(joint_id)
+            effort_range = base.jnt_actfrcrange[joint_id]
+            with self.subTest(joint=joint.name):
+                np.testing.assert_allclose(model.actuator_ctrlrange[actuator_id], joint.range, rtol=0, atol=1e-15)
+                np.testing.assert_array_equal(model.actuator_forcerange[actuator_id], effort_range)
+                state = mujoco.MjData(model)
+                state.ctrl[actuator_id] = 0.01  # radians; 500 * 0.01 = 5 Nm at rest.
+                mujoco.mj_forward(model, state)
+                self.assertAlmostEqual(state.actuator_force[actuator_id], 5.0)
+                self.assertAlmostEqual(state.qfrc_actuator[int(joint.dofadr[0])], 5.0)
+                state.qpos[int(joint.qposadr[0])] = float(joint.range.mean())
+                for sign, cap in zip((-1, 1), effort_range):
+                    state.ctrl[actuator_id] = sign * 1e6
+                    mujoco.mj_forward(model, state)
+                    self.assertAlmostEqual(state.actuator_force[actuator_id], float(cap))
+
+    def test_actuated_default_preserves_unactuated_geometry_and_passive_physics(self):
+        base = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo_mjlab.xml"))
+        model = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo.xml"))
+        self.assertEqual((base.nq, base.nv, base.nu, base.nkey), (36, 35, 0, 0))
+        self.assertEqual(base.opt.integrator, mujoco.mjtIntegrator.mjINT_EULER)
+        for attribute in ("body_mass", "body_inertia", "body_pos", "body_quat", "body_ipos", "body_iquat",
+                          "jnt_type", "jnt_pos", "jnt_axis", "jnt_range", "jnt_actfrcrange", "dof_armature",
+                          "dof_damping", "dof_frictionloss", "geom_type", "geom_bodyid", "geom_pos", "geom_quat",
+                          "geom_size", "geom_contype", "geom_conaffinity", "geom_condim", "geom_friction",
+                          "geom_solref", "geom_solimp", "mesh_vert", "mesh_face", "qpos0", "exclude_signature"):
+            np.testing.assert_array_equal(getattr(model, attribute), getattr(base, attribute), err_msg=attribute)
+        state = mujoco.MjData(base)
+        step_scene(base, state)
+        self.assertTrue(np.isfinite(state.qpos).all())
+        self.assertTrue(np.isfinite(state.qvel).all())
+        self.assertFalse(np.any(state.warning.number))
+
+
 class AstroP2CollisionTests(unittest.TestCase):
     def test_relative_scene_paths_resolve_collision_models(self):
         script = """
@@ -235,17 +292,17 @@ for path, ngeom in ((sys.argv[1], 89), (sys.argv[2], 90)):
                  'neck_handle_right_support_capsule'):
         assert model.body(int(model.geom(name).bodyid[0])).name == 'waist_roll_link'
 """
-        for directory in (ROOT, ROOT.parent, ROOT / "astro_p2"):
-            paths = [str((ROOT / "astro_p2" / name).relative_to(directory))
-                     for name in ("astro_p2.xml", "scene.xml")]
+        for directory in (ROOT, ROOT.parent, ROOT / "lumo"):
+            paths = [str((ROOT / "lumo" / name).relative_to(directory))
+                     for name in ("lumo.xml", "scene.xml")]
             with self.subTest(directory=str(directory)):
                 result = subprocess.run([sys.executable, "-c", script, *paths], cwd=directory,
                                         capture_output=True, text=True)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_shared_foot_model_preserves_attachments_and_geometry(self):
-        template = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2/foot_collisions.xml"))
-        robot = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2/astro_p2.xml"))
+        template = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/foot_collisions.xml"))
+        robot = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo.xml"))
         self.assertEqual(template.ngeom, 11)
         for side in ("left", "right"):
             foot = robot.body(f"{side}_foot_link")
@@ -272,7 +329,7 @@ for path, ngeom in ((sys.argv[1], 89), (sys.argv[2], 90)):
                 for geom in body.findall("geom") if geom.get("group") == "3"}
 
     def test_knee_extension_stop_preserves_flexion_contacts(self):
-        path = ROOT / "astro_p2/astro_p2.xml"
+        path = ROOT / "lumo/lumo.xml"
         current = mujoco.MjModel.from_xml_path(str(path))
         # Counterfactual preserves every manual edit except the 3 mm knee stop.
         spec = mujoco.MjSpec.from_file(str(path))
@@ -306,12 +363,12 @@ for path, ngeom in ((sys.argv[1], 89), (sys.argv[2], 90)):
                     np.testing.assert_allclose(records[0], records[1], rtol=0, atol=1e-10)
 
     def test_lower_body_ground_contacts_match_original(self):
-        retained = set(self._non_arm_colliders(ROOT / "astro_p2/astro_p2.xml"))
+        retained = set(self._non_arm_colliders(ROOT / "lumo/lumo.xml"))
         retained.add("menagerie_floor")
         for pose in ({}, {"left_knee_joint": 0.45, "left_ankle_pitch_joint": -0.2}):
             records = []
             for filename in ("scene_with_hands.xml", "scene.xml"):
-                model = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2" / filename))
+                model = mujoco.MjModel.from_xml_path(str(ROOT / "lumo" / filename))
                 data = mujoco.MjData(model)
                 data.qpos[2] -= 0.1051
                 for name, value in pose.items():
@@ -339,8 +396,8 @@ for path, ngeom in ((sys.argv[1], 89), (sys.argv[2], 90)):
 
 class AstroP2VariantTests(unittest.TestCase):
     def setUp(self):
-        self.rubber = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2/astro_p2.xml"))
-        self.dex = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2/astro_p2_with_hands.xml"))
+        self.rubber = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo_mjlab.xml"))
+        self.dex = mujoco.MjModel.from_xml_path(str(ROOT / "lumo/lumo_with_hands.xml"))
 
     def test_fixed_head_and_hand_dof_inventory(self):
         self.assertEqual((self.rubber.nq, self.rubber.nv, self.rubber.nu), (36, 35, 0))
@@ -457,7 +514,7 @@ class AstroP2VariantTests(unittest.TestCase):
         mujoco.mj_forward(default, state)
         self.assertEqual(state.ncon, 0)
         for scene_name in ("scene.xml", "scene_with_hands.xml"):
-            scene = mujoco.MjModel.from_xml_path(str(ROOT / "astro_p2" / scene_name))
+            scene = mujoco.MjModel.from_xml_path(str(ROOT / "lumo" / scene_name))
             for side in ("left", "right"):
                 for angle, expected_contact in ((0, False), (-0.08, True), (2.3, False), (2.44, True)):
                     state = mujoco.MjData(scene)
@@ -583,13 +640,13 @@ class AstroP2VariantTests(unittest.TestCase):
                                           "left_elbow_stop_collision"), -1)
 
     def test_native_rubber_meshes_and_inertias_match_astro_sources(self):
-        record = json.loads((ROOT / "astro_p2/provenance/rubber_hands.json").read_text())
-        xml = ET.parse(ROOT / "astro_p2/astro_p2.xml")
-        vendor = ROOT / "astro_p2" / record["source_urdf_local"]
+        record = json.loads((ROOT / "lumo/provenance/rubber_hands.json").read_text())
+        xml = ET.parse(ROOT / "lumo/lumo_mjlab.xml")
+        vendor = ROOT / "lumo" / record["source_urdf_local"]
         self.assertEqual(hashlib.sha256(vendor.read_bytes()).hexdigest(), record["source_urdf_sha256"])
         vendor_xml = ET.parse(vendor)
         for side, source in record["hands"].items():
-            path = ROOT / "astro_p2" / source["mesh"]
+            path = ROOT / "lumo" / source["mesh"]
             self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), source["mesh_sha256"])
             original = vendor_xml.find(f"link[@name='{side}_hand_link']")
             original_inertial = original.find("inertial")

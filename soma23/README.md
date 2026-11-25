@@ -1,7 +1,11 @@
-# SOMA-23 Description (MJCF)
+# SOMA-23 Description (MJCF, Archived)
 
 > [!IMPORTANT]
 > Tested with MuJoCo 3.11.0, the version pinned by this repository.
+
+> [!WARNING]
+> **Archived:** retained for reference outside the active collection; native
+> model and scene loading checks continue.
 
 ## Changelog
 

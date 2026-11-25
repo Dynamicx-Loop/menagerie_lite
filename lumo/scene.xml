@@ -1,5 +1,12 @@
-<mujoco model="astro_p2 with hands scene">
-  <include file="astro_p2_with_hands.xml"/>
+<mujoco model="lumo scene">
+  <option timestep="0.002" integrator="implicitfast"/>
+
+  <asset>
+    <model name="lumo" file="lumo.xml"/>
+  </asset>
+  <worldbody>
+    <attach model="lumo" prefix=""/>
+  </worldbody>
 
   <visual>
     <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0.9 0.9 0.9"/>

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-24
+
+- Archive both P1 models; retain assets and native checks.
+
 ## 2026-10-30
 
 - Mark both P1 models as legacy and remove them from the active collection.

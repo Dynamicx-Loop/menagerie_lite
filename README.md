@@ -5,8 +5,8 @@
 **Menagerie X** is a collection of robot and sensor models for the
 [MuJoCo](https://github.com/google-deepmind/mujoco) physics engine. Its organization
 follows [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie),
-with six active native MJCF models across four families, grouped into
-Humanoids and Miscellaneous. Astro P1 and archived Atom P3 are retained
+with five active native MJCF models across three families, grouped into
+Humanoids and Miscellaneous. Astro P1, SOMA-23, and Atom P3 are archived and retained
 separately as legacy references.
 
 Each model directory contains the robot description, a scene, local assets,
@@ -41,12 +41,13 @@ uv sync --locked --extra dev
 All robot families follow the same native organization. For example:
 
 ```text
-astro_p2/
-├── assets/                 # shared Astro and Unitree hand meshes
-├── astro_p2.xml            # default 29-DoF model
-├── astro_p2.png            # scene preview
-├── scene.xml               # default scene
-├── astro_p2_with_hands.xml  # same body plus 14 Dex3-1 finger DoFs
+lumo/
+├── assets/                  # shared Astro and Unitree hand meshes
+├── lumo.xml                 # 29 position-servo gallery default
+├── lumo_mjlab.xml           # shared unactuated physical model
+├── lumo.png                 # scene preview
+├── scene.xml                # default scene
+├── lumo_with_hands.xml  # same body plus 14 Dex3-1 finger DoFs
 ├── scene_with_hands.xml     # dexterous-hand scene
 ├── README.md
 ├── CHANGELOG.md
@@ -69,7 +70,7 @@ may also use a family-local `meshes -> assets` link.
 Open a native scene in MuJoCo's interactive viewer:
 
 ```bash
-uv run python -m mujoco.viewer --mjcf astro_p2/scene.xml
+uv run python -m mujoco.viewer --mjcf lumo/scene.xml
 ```
 
 Or load it through the native Python bindings:
@@ -77,13 +78,13 @@ Or load it through the native Python bindings:
 ```python
 import mujoco
 
-model = mujoco.MjModel.from_xml_path("astro_p2/scene.xml")
+model = mujoco.MjModel.from_xml_path("lumo/scene.xml")
 data = mujoco.MjData(model)
 mujoco.mj_step(model, data)
 ```
 
 Scenes use native reference initialization. Select named keyframes explicitly;
-for example, the Astro P2 with hands model's `fist` keyframe is not selected by a
+for example, the Lumo with hands model's `fist` keyframe is not selected by a
 normal reset. Standard G1 provides the `stand` keyframe.
 
 Workbench, URDF compatibility, and MJX remain deferred. Legacy application code
@@ -113,6 +114,8 @@ make all
 
 ## Menagerie Models
 
+The gallery shows one representative for each of three families; the catalog
+contains five active models, including variants described in the family READMEs.
 DoF counts exclude the floating base. Click a preview to open its
 scene in [MuJoCo Live](https://live.mujoco.org/), or a model name for its description.
 Viewer links load the latest published `main` branch.
@@ -128,26 +131,16 @@ share the same visual appearance.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/astro_p2/scene.xml"><img src="astro_p2/astro_p2.png" alt="Astro P2" width="120"></a> | [Astro P2](astro_p2/README.md) | 29 | [Apache-2.0](astro_p2/LICENSE) |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/astro_p2/scene_with_hands.xml"><img src="astro_p2/astro_p2_with_hands.png" alt="Astro P2 with hands" width="120"></a> | [Astro P2 with hands](astro_p2/README.md) | 43 | [Apache-2.0 body; BSD-3-Clause hands](astro_p2/LICENSING.md) |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/soma23/scene.xml"><img src="soma23/soma23_free_base.png" alt="SOMA-23" width="120"></a> | [SOMA-23](soma23/README.md) | 66 | [Apache-2.0](soma23/LICENSE.ProtoMotions) |
+| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 body; BSD-3-Clause servos](lumo/LICENSING.md) |
 | <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/unitree_g1/scene_29dof_box_feet.xml"><img src="unitree_g1/unitree_g1_29dof_box_feet.png" alt="Unitree G1 with box feet" width="120"></a> | [Unitree G1 with box feet](unitree_g1/README.md) | 29 | [Apache-2.0 model; BSD-3-Clause meshes](unitree_g1/LICENSING.md) |
 
-Astro P2 has a fixed-head, 29-DoF body. Dex3-1 adds 14 finger joints
-(43 total). The default model now carries the maintainer-approved collision
-geometry: 52 primitives, automatic elbow contacts and no explicit contact pairs.
-See its [collision preview](astro_p2/astro_p2_colliders.png). The separate
-simplified variant is retired; its source snapshots are preserved under
-[provenance](astro_p2/provenance/retired_simplified/README.md).
-The previous 30-DoF primitive, mesh, and intermediate
-P2 descriptions are retired; their history remains in Git. The formerly
-separate Astro 29 and Dex3-1 folders are consolidated into `astro_p2/`.
+Lumo's 29-DoF gallery model uses position servos with joint-angle controls in
+radians. See the [Lumo description](lumo/README.md) for its hand-equipped
+variant, collision geometry, and retained sources.
 
 The standard G1 model is imported from MuJoCo Menagerie and uses position
-targets in radians. The ProtoMotions box-feet model uses torque controls.
-Both have 29 body joints and fixed rubber hands; see the
-[G1 description](unitree_g1/README.md) for their control and collision details.
+targets in radians. See the [G1 description](unitree_g1/README.md) for its
+box-feet variant and control and collision details.
 
 ### Miscellaneous
 
@@ -168,10 +161,9 @@ and one decoded mesh is truncated. Repair and all-mesh validation are deferred;
 see the [archive record](docs/design/archive-atom-p3.md). Atom P3 is excluded
 from the active gallery and model map.
 
-[Astro P1](astro_p1/README.md) is **legacy and scheduled for retirement**. Its
-[30-DoF](astro_p1/scene.xml) and [27-DoF](astro_p1/scene_27dof.xml) models remain
-available and receive native loading checks until removal. They are excluded
-from the active gallery and active model map. Use Astro P2 for new work.
+[Astro P1](astro_p1/README.md) is **archived**. Its [30-DoF](astro_p1/scene.xml) and [27-DoF](astro_p1/scene_27dof.xml) models remain available for reference and native loading checks.
+
+[SOMA-23](soma23/README.md) is **archived**. Its model and source records remain available for reference and native loading checks. Both families are excluded from the active gallery and model map.
 
 ## Acknowledgments
 
@@ -193,8 +185,8 @@ family also has a changelog linked from its README.
 
 Models and assets retain their individual terms. The gallery links the relevant
 license or provenance status for each model; the complete scope is recorded in
-[LICENSING.md](LICENSING.md) and each family's licensing notes. The Astro P2 body
-and default model use Apache-2.0; Unitree hand material retains BSD-3-Clause
+[LICENSING.md](LICENSING.md) and each family's licensing notes. The Lumo body
+and unactuated base use Apache-2.0; adapted default servos and Unitree hand material retain BSD-3-Clause
 terms. Legacy Astro P1 and Atom bundles retain their recorded
 unresolved status.
 

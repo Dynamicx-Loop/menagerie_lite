@@ -5,7 +5,7 @@ Terms for the robot collection, its descriptions, and simulation configurations.
 ## Language
 
 **Robot variant**:
-A named robot asset family whose supported descriptions are maintained together, such as `astro_p1`, `astro_p2`, or `unitree_g1`.
+A named robot asset family whose supported descriptions are maintained together, such as `astro_p1`, `lumo`, or `unitree_g1`.
 
 **Robot edition**:
 A named robot-description configuration within a variant, such as `30dof_primitive_collision`. An edition may provide URDF, MJCF, or both.

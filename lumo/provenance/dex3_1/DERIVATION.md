@@ -12,7 +12,7 @@ Unitree identifies Dex3-1 as G1's optional three-finger dexterous hand. Geometry
 internal transforms, axes, joint limits, effort/velocity fields and inertias are
 from the official standalone Dex3-1 URDFs at Unitree ROS revision
 `5994d4faef0a9cadd3287f8de0199a67eeb2a259`. See
-[the source review](../docs/robots/astro-three-finger-hand-research.md) for
+[the source review](../../../docs/robots/astro-three-finger-hand-research.md) for
 primary citations and signed joint limits. Vendor URDF snapshots are retained
 verbatim in `upstream/` as source records; their original mesh paths are relative
 to the upstream tree. The assembled root-level URDF and MJCF are runnable here.

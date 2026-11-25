@@ -23,16 +23,19 @@ with each family; see [LICENSING.md](LICENSING.md).
 
 ## Native ownership and preservation
 
-- The active collection has six models across four families, classified as
+- The active collection has five models across three families, classified as
   Humanoids or Miscellaneous using upstream category values. D435i is a fixed,
   zero-DoF asset without simulated camera or IMU definitions. Astro P1's two
-  models and archived Atom P3 are retained in `LEGACY_MODEL_MAP` and receive
+  models, SOMA-23, and Atom P3 are archived and retained in `LEGACY_MODEL_MAP` and receive
   native checks; they are excluded from the active gallery.
-- Astro P2 is one family with two maintained model/scene pairs: default
-  fixed-head 29-joint Astro P2 and the articulated Dex3-1 alternative. The
+- Lumo is one family with two maintained model/scene pairs: position-actuated
+  fixed-head 29-joint Lumo and the unactuated Dex3-1 alternative. The default
+  `lumo.xml` attaches the preserved `lumo_mjlab.xml` and adds G1-style position
+  servos (kp=500, dampratio=1), inherited control ranges and Lumo effort limits.
+  It uses implicitfast at 0.002 s; the base and hands retain Euler. The
   maintainer-approved default retains all assets/physics and uses 52 collision
   primitives with automatic elbow contacts. The separate simplified model is
-  retired under `astro_p2/provenance/retired_simplified/`, with frozen source
+  retired under `lumo/provenance/retired_simplified/`, with frozen source
   hashes and licensing. It is excluded from the active catalog and tests.
   No MJX runtime compatibility is claimed. The old 30-DoF P2 choices remain retired.
 - The rubber model restores the original Astro hand meshes, fixed-joint frames,
@@ -42,10 +45,10 @@ with each family; see [LICENSING.md](LICENSING.md).
   [restoration record](docs/astro-native-hand-restoration.md).
 - Family-root XML is canonical and directly maintained, with actual local
   assets. No generator overwrites native edits. Astro conversion/refinement
-  originals and records are preserved byte-for-byte under `astro_p2/provenance/`;
+  originals and records are preserved byte-for-byte under `lumo/provenance/`;
   its migration receipt identifies old paths and hashes. The native Dex model
   retains its dynamics, finger definitions, and `fist` keyframe.
-  Its public label is Astro P2 with hands; the 16 hand visual geoms now use
+  Its public label is Lumo with hands; the 16 hand visual geoms now use
   silver coloring, without changing mesh bytes or physics.
 - All non-hand Astro body properties are shared between the two variants. Source
   frames are retained; both scenes use one floor at `z=-0.75`. Atom, SOMA, G1,
@@ -57,7 +60,7 @@ with each family; see [LICENSING.md](LICENSING.md).
   `unitree_g1/provenance/retired_variants/`; they are outside the active catalog.
 - No `family.json`, revision/promotion framework, or application adapter is
   introduced. Native MuJoCo loads a copied family without global metadata.
-- Astro P2 body/default-model material is released under Apache-2.0, as directed
+- Lumo body/unactuated-model material is released under Apache-2.0, as directed
   by the maintainer. Unitree and ProtoMotions material retains its own notices.
   Legacy P1 and Atom keep their existing licensing records.
 

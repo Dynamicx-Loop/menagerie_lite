@@ -30,24 +30,23 @@ class ModelType(int, enum.Enum):
 
 
 MODEL_MAP = {
-    "astro_p2/astro_p2": ModelType.HUMANOID,
-    "astro_p2/astro_p2_with_hands": ModelType.HUMANOID,
-    "soma23/soma23_free_base": ModelType.HUMANOID,
+    "lumo/lumo": ModelType.HUMANOID,
+    "lumo/lumo_with_hands": ModelType.HUMANOID,
     "unitree_g1/g1": ModelType.HUMANOID,
     "unitree_g1/unitree_g1_29dof_box_feet": ModelType.HUMANOID,
     "realsense_d435i/d435i": ModelType.MISC,
 }
 
-# Retained for native loading checks; Astro P1 is scheduled for retirement.
-# Atom P3 is archived while mesh-integrity repair is deferred.
+# Archived models remain available for native loading checks.
 LEGACY_MODEL_MAP = {
+    "soma23/soma23_free_base": ModelType.HUMANOID,
     "atom_p3/atom_p3_27dof": ModelType.HUMANOID,
     "astro_p1/astro_p1_30dof": ModelType.HUMANOID,
     "astro_p1/astro_p1_27dof": ModelType.HUMANOID,
 }
 
 PREVIEW_OVERRIDES = {
-    "astro_p2/astro_p2_with_hands": "astro_p2/scene_with_hands.xml",
+    "lumo/lumo_with_hands": "lumo/scene_with_hands.xml",
     "astro_p1/astro_p1_27dof": "astro_p1/scene_27dof.xml",
     "unitree_g1/unitree_g1_29dof_box_feet": "unitree_g1/scene_29dof_box_feet.xml",
 }

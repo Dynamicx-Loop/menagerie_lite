@@ -14,7 +14,7 @@ make all
 ```
 
 `make check` checks family layout and maintained XML style. `make test` loads all
-nine retained native model/scene pairs (six active, two legacy P1, and one archived Atom P3), steps
+nine retained native model/scene pairs (five active, two archived P1, one archived SOMA-23, and one archived Atom P3), steps
 each for 0.1 seconds with deterministic controls, checks existing keyframe reset, compares robot physics with retained
 imports, and loads copied standalone runtime folders. CI runs `make all` with
 pinned MuJoCo 3.11.0. No viewer, display, browser, or rendering backend is needed.
@@ -24,12 +24,14 @@ An optional `pre-commit install` enables the native layout/style hook.
 
 1. Edit the family-root model or scene XML directly. Scenes include a sibling
    model and supply the environment. Keep dependencies relative and family-local.
+   Lumo's default is an actuator wrapper: edit physical geometry in
+   `lumo/lumo_mjlab.xml` and servo definitions in `lumo/lumo.xml`.
 2. Maintain native model/preview entries in root `catalog.py`, as upstream does.
    Local experiment XMLs are not automatically cataloged. There is no required
    `family.json` and no generation/sync step.
 3. Preserve physical descriptions, imported source files, hashes, and notices.
    Nested `mjcf/` imports are historical snapshots, not native authoring targets.
-   Astro conversion/refinement originals are retained under `astro_p2/provenance/`
+   Astro conversion/refinement originals are retained under `lumo/provenance/`
    with recorded hashes; edit the maintained family-root XML directly.
 4. Run `make all` and record changes in the family's `CHANGELOG.md`.
 
