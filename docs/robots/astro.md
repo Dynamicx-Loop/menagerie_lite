@@ -92,13 +92,13 @@ where $\omega = 2\pi \times f$ (angular frequency), $f$ is the natural frequency
 This checkout includes a browser tool for tuning PD parameters and inspecting preset keyframe heights.
 
 ```bash
-uv run menagerie_x pd-tool
+uv run menagerie_lite pd-tool
 ```
 
 For a terminal-only launch that prints the URL without opening a browser:
 
 ```bash
-uv run menagerie_x pd-tool --no-browser
+uv run menagerie_lite pd-tool --no-browser
 ```
 
 The PD table panel loads the `Joint Parameters` table below. Adjust natural frequency `f` and damping ratio per joint group, then preview and apply changes to this document.
@@ -117,7 +117,7 @@ The panel also renders a MuJoCo snapshot for the selected keyframe. Available ke
 For command-line height checks:
 
 ```bash
-uv run menagerie_x heights --config knees_bent
+uv run menagerie_lite heights --config knees_bent
 ```
 
 ### Joint Parameters
@@ -210,7 +210,7 @@ Standard URDF geometry does not define a capsule primitive. This package support
 Generate an extended URDF from the MJCF capsule geoms:
 
 ```bash
-uv run menagerie_x urdf-capsules --output /tmp/astro_p1_capsules.urdf
+uv run menagerie_lite urdf-capsules --output /tmp/astro_p1_capsules.urdf
 ```
 
 The generator keeps the existing URDF content and appends extension capsule collision elements to matching links. Use the generated file only with tools that explicitly support `format="astro-extension-v1"`; keep `astro_p1/urdf/astro_p1_30dof.urdf` as the standard mesh-collision URDF.

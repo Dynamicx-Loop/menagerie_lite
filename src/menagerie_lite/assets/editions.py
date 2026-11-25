@@ -390,7 +390,7 @@ def import_urdf_variant(variant_id: str, source: Path, root: Path | None = None)
             "editions": {edition_id: {"base_mode": "free", "dof": dof, "label": "Default", "urdf": f"urdf/{target_urdf.name}", "mjcf": None}},
         }
         _write_manifest(paths.manifest_path, manifest)
-        from menagerie_x.commands.mjcf import convert_variant_to_candidate
+        from menagerie_lite.commands.mjcf import convert_variant_to_candidate
         output = robot_dir / "mjcf" / f"{variant_id}_{edition_id}.xml"
         result = convert_variant_to_candidate(variant_id, variant_id, output, paths.root)
         manifest = load_manifest(paths.root)

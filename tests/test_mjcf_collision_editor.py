@@ -5,9 +5,9 @@ import shutil
 import tempfile
 import unittest
 
-from menagerie_x.commands.mjcf import read_candidate_metadata_file
-from menagerie_x.workbench.collisions import StaleCollisionDocumentError
-from menagerie_x.workbench.mjcf_collisions import (
+from menagerie_lite.commands.mjcf import read_candidate_metadata_file
+from menagerie_lite.workbench.collisions import StaleCollisionDocumentError
+from menagerie_lite.workbench.mjcf_collisions import (
     MjcfCollisionDraftStore,
     _body_frames,
     _matrix_multiply,

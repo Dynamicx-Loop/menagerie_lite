@@ -1,7 +1,7 @@
 import pathlib
 import unittest
 
-from menagerie_x.tools import calc_heights
+from menagerie_lite.tools import calc_heights
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ROBOT_ROOT = ROOT / "astro_p1"

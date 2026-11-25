@@ -3,7 +3,7 @@ import json
 import pathlib
 import unittest
 
-from menagerie_x.tools import pd_params_tool
+from menagerie_lite.tools import pd_params_tool
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 

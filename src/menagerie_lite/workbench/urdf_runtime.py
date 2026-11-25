@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from menagerie_x.assets import Edition
+from menagerie_lite.assets import Edition
 
 
 class UrdfRuntimeError(ValueError):

@@ -1,4 +1,4 @@
-# Contributing to Menagerie X
+# Contributing to Menagerie Lite
 
 Follow MuJoCo Menagerie's native asset organization: a self-contained top-level
 family directory, maintained robot XML, separate scene XML, local `assets/`,

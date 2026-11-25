@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from menagerie_x.assets import get_asset_paths
+from menagerie_lite.assets import get_asset_paths
 
 
 class HeightToolError(ValueError):

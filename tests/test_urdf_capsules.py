@@ -2,7 +2,7 @@ import pathlib
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.commands.urdf_capsules import (
+from menagerie_lite.commands.urdf_capsules import (
     add_capsule_extension_collisions,
     convert_mjcf_capsules_to_urdf,
     extract_capsules_from_mjcf,

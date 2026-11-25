@@ -488,7 +488,7 @@ wheels = [
 ]
 
 [[package]]
-name = "menagerie-x"
+name = "menagerie-lite"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

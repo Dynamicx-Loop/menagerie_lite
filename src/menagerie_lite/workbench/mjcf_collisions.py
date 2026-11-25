@@ -22,8 +22,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from menagerie_x.commands.mjcf import candidate_metadata_payload, write_candidate_metadata
-from menagerie_x.workbench.collisions import CollisionDocumentError, CollisionDraftNotFoundError, StaleCollisionDocumentError
+from menagerie_lite.commands.mjcf import candidate_metadata_payload, write_candidate_metadata
+from menagerie_lite.workbench.collisions import CollisionDocumentError, CollisionDraftNotFoundError, StaleCollisionDocumentError
 
 
 PRIMITIVE_TYPES = frozenset({"box", "sphere", "cylinder", "capsule"})

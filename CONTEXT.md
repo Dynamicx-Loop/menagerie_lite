@@ -1,4 +1,4 @@
-# Menagerie X context
+# Menagerie Lite context
 
 The domain glossary is maintained in [GLOSSARY.md](GLOSSARY.md).
 Accepted design decisions and their implementation status are recorded in

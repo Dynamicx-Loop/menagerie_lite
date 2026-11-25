@@ -1,15 +1,16 @@
-# Menagerie X
+# Menagerie Lite
 
 [![English](https://img.shields.io/badge/Language-English-blue)](README.md) [![简体中文](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-blue)](README.zh-CN.md)
 
-[![Build](https://img.shields.io/github/actions/workflow/status/notAnyrobot/menagerie_x/build.yml?branch=main)](https://github.com/notAnyrobot/menagerie_x/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/Dynamicx-Loop/menagerie-lite/build.yml?branch=main)](https://github.com/Dynamicx-Loop/menagerie-lite/actions/workflows/build.yml)
 
-**Menagerie X** is a collection of robot and sensor models for the
+**Menagerie Lite** is a collection of robot and sensor models for the
 [MuJoCo](https://github.com/google-deepmind/mujoco) physics engine. Its organization
 follows [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie),
 with five active native MJCF models across three families, grouped into
 Humanoids and Miscellaneous. Astro P1, SOMA-23, and Atom P3 are archived and retained
-separately as legacy references.
+separately as legacy references. “Lite” refers to the deliberately small, curated
+catalogue.
 
 Each model directory contains the robot description, a scene, local assets,
 derivation notes, and licensing records. Source fidelity and available controls
@@ -23,6 +24,10 @@ vary by model; the individual READMEs describe those limits.
 - [Changelog](#changelog)
 - [License and Disclaimer](#license-and-disclaimer)
 
+Existing users: install the `menagerie-lite` distribution and update Python
+imports and the CLI command from `menagerie_x` to `menagerie_lite`. See
+[ADR 0015](docs/adr/0015-menagerie-lite-project-identity.md).
+
 ## Getting Started
 
 ### Prerequisites
@@ -33,8 +38,8 @@ been established for these local models. Install the checkout's dependencies
 with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-git clone https://github.com/notAnyrobot/menagerie_x.git
-cd menagerie_x
+git clone https://github.com/Dynamicx-Loop/menagerie-lite.git
+cd menagerie-lite
 uv sync --locked --extra dev
 ```
 
@@ -133,8 +138,8 @@ share the same visual appearance.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 body; BSD-3-Clause servos](lumo/LICENSING.md) |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 body; BSD-3-Clause servos](lumo/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
 
 Lumo's 29-DoF gallery model uses position servos with joint-angle controls in
 radians. See the [Lumo description](lumo/README.md) for its hand-equipped
@@ -148,7 +153,7 @@ box-feet variant and control and collision details.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:notAnyrobot/menagerie_x/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
 
 The D435i model and preview image are imported from MuJoCo Menagerie. It is a
 fixed geometry and collision model and does not define camera image streams
@@ -175,7 +180,7 @@ records identify the available revisions, hashes, modifications, and notices.
 
 MuJoCo Menagerie provides the reference layout, XML formatter, and native
 validation conventions. [UPSTREAM.md](UPSTREAM.md) records the pinned upstream
-revision and the scope of copied or adapted material. Menagerie X is maintained
+revision and the scope of copied or adapted material. Menagerie Lite is maintained
 separately from Google DeepMind's collection.
 
 ## Changelog

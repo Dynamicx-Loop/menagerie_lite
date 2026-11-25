@@ -10,8 +10,8 @@ import tempfile
 import xml.etree.ElementTree as ET
 import mujoco
 import numpy as np
-from menagerie_x.assets import get_variant, validate_assets
-from menagerie_x.assets.editions import list_mjcf_editions
+from menagerie_lite.assets import get_variant, validate_assets
+from menagerie_lite.assets.editions import list_mjcf_editions
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'astro_p2_29dof'

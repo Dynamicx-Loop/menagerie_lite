@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-25
+
+- Rename the project to Menagerie Lite, the Python distribution to
+  `menagerie-lite`, and the import namespace and CLI to `menagerie_lite`.
+
 ## 2026-11-24
 
 - Preserve the unactuated Lumo model as `lumo_mjlab.xml`; make `lumo.xml` the

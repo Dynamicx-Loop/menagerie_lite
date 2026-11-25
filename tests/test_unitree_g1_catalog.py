@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.assets import get_variant, validate_assets
+from menagerie_lite.assets import get_variant, validate_assets
 
 ASSETS = Path(__file__).resolve().parents[1]
 

@@ -2,8 +2,8 @@ import pathlib
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.assets import get_edition, get_variant, resolve_scene
-from menagerie_x.workbench.urdf_runtime import prepare_urdf_runtime
+from menagerie_lite.assets import get_edition, get_variant, resolve_scene
+from menagerie_lite.workbench.urdf_runtime import prepare_urdf_runtime
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]

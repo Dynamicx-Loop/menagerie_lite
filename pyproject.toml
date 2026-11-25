@@ -1,5 +1,5 @@
 [project]
-name = "menagerie_x"
+name = "menagerie-lite"
 version = "0.1.0"
 description = "Curated native MuJoCo robot models and scenes"
 requires-python = ">=3.12"
@@ -8,7 +8,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/notAnyrobot/menagerie_x"
+Repository = "https://github.com/Dynamicx-Loop/menagerie-lite"
 
 [project.optional-dependencies]
 dev = ["lxml>=6.0.0"]
@@ -18,18 +18,18 @@ viz = [
 ]
 
 [project.scripts]
-menagerie_x = "menagerie_x.cli:main"
+menagerie_lite = "menagerie_lite.cli:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/menagerie_x"]
+packages = ["src/menagerie_lite"]
 
 [tool.hatch.build.targets.sdist]
 only-include = [
-    "src/menagerie_x", "manifest.json",
+    "src/menagerie_lite", "manifest.json",
     "astro_p1", "lumo",
     "atom_p3", "soma23", "unitree_g1", "realsense_d435i", "scenes", "terrains",
     "test", "tests", "docs", "LICENSES", "README.md", "README.zh-CN.md", "CONTEXT.md",

@@ -3,7 +3,7 @@ import pathlib
 import tempfile
 import unittest
 
-from menagerie_x.assets import Variant, get_variant, inspect_variant, variants
+from menagerie_lite.assets import Variant, get_variant, inspect_variant, variants
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]

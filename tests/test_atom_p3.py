@@ -14,10 +14,10 @@ import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.assets import get_variant, inspect_variant, load_manifest, resolve_scene, validate_assets
-from menagerie_x.assets.editions import import_mjcf_variant
-from menagerie_x.cli import main as cli_main
-from menagerie_x.commands.mujoco import check_mujoco
+from menagerie_lite.assets import get_variant, inspect_variant, load_manifest, resolve_scene, validate_assets
+from menagerie_lite.assets.editions import import_mjcf_variant
+from menagerie_lite.cli import main as cli_main
+from menagerie_lite.commands.mujoco import check_mujoco
 
 
 ROOT = Path(__file__).resolve().parents[1]

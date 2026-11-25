@@ -6,8 +6,8 @@ import tempfile
 import unittest
 from xml.etree import ElementTree as ET
 
-from menagerie_x.assets import get_variant
-from menagerie_x.commands.mjcf import (
+from menagerie_lite.assets import get_variant
+from menagerie_lite.commands.mjcf import (
     MjcfCandidateError,
     authorize_candidate,
     convert_variant_to_candidate,

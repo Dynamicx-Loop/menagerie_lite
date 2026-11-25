@@ -1,4 +1,4 @@
-# Menagerie X
+# Menagerie Lite
 
 Terms for the robot collection, its descriptions, and simulation configurations.
 

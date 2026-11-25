@@ -6,7 +6,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from menagerie_x.assets import (
+from menagerie_lite.assets import (
     UrdfCollisionExportError,
     Variant,
     export_urdf_with_mjcf_collisions,

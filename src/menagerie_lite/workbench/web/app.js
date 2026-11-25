@@ -2396,7 +2396,7 @@ async function addRobotVariant() {
   if (!variantId) return;
   const format = window.prompt("Import format: MJCF or URDF", "MJCF")?.trim().toLowerCase();
   if (format !== "mjcf" && format !== "urdf") return setMjcfStatus("Choose MJCF or URDF.", true);
-  const sourcePath = window.prompt(`Path to the ${format.toUpperCase()} file to copy into Menagerie Workbench:`);
+  const sourcePath = window.prompt(`Path to the ${format.toUpperCase()} file to copy into Menagerie Lite Workbench:`);
   if (!sourcePath) return;
   try {
     setMjcfStatus(`Importing ${variantId} into managed workspace…`);

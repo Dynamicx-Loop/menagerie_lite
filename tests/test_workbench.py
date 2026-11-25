@@ -12,15 +12,15 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from unittest import mock
 
-from menagerie_x.assets import variants
-from menagerie_x import cli as menagerie_cli
-from menagerie_x.workbench import create_server
-from menagerie_x.workbench import server as workbench_server
-from menagerie_x.workbench.server import NativeViewerAlreadyRunningError, NativeViewerProcessManager, WorkbenchRequestHandler
+from menagerie_lite.assets import variants
+from menagerie_lite import cli as menagerie_cli
+from menagerie_lite.workbench import create_server
+from menagerie_lite.workbench import server as workbench_server
+from menagerie_lite.workbench.server import NativeViewerAlreadyRunningError, NativeViewerProcessManager, WorkbenchRequestHandler
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-WEB_ROOT = ROOT / "src" / "menagerie_x" / "workbench" / "web"
+WEB_ROOT = ROOT / "src" / "menagerie_lite" / "workbench" / "web"
 
 
 class FakeNativeViewerProcess:
@@ -93,7 +93,7 @@ class NativeViewerProcessManagerTests(unittest.TestCase):
         self.assertEqual(status["launch"]["source"], str(self.source.resolve()))
         command = self.calls[0][0][0]
         self.assertIsNot(self.calls[0][1]["stderr"], subprocess.PIPE)
-        self.assertEqual(command[:5], [sys.executable, "-m", "menagerie_x.cli", "--root", str((ROOT).resolve())])
+        self.assertEqual(command[:5], [sys.executable, "-m", "menagerie_lite.cli", "--root", str((ROOT).resolve())])
         self.assertEqual(command[-2:], ["--mjcf", str(self.source.resolve())])
         with self.assertRaises(NativeViewerAlreadyRunningError):
             self.manager.launch(self.variant, {"id": "authorized"}, self.variant.mjcf)
@@ -293,7 +293,7 @@ class WorkbenchRestartEndpointTests(unittest.TestCase):
         self.assertTrue(payload["ok"])
         self.assertTrue(self.restarted.wait(1))
         command = self.commands[0]
-        self.assertEqual(command[:3], [sys.executable, "-m", "menagerie_x.cli"])
+        self.assertEqual(command[:3], [sys.executable, "-m", "menagerie_lite.cli"])
         self.assertEqual(command[3:7], ["--root", str((ROOT).resolve()), "workbench", "--host"])
         self.assertEqual(command[-2:], ["--port", str(self.server.server_address[1])])
 
@@ -519,7 +519,7 @@ class WorkbenchTests(unittest.TestCase):
         self.assertIn('data-tab="mjcf"', page)
         self.assertIn('id="mjcf-generate"', page)
         self.assertIn('id="mjcf-candidate-list"', page)
-        self.assertIn("create_managed_candidate", (ROOT / "src" / "menagerie_x" / "workbench" / "server.py").read_text(encoding="utf-8"))
+        self.assertIn("create_managed_candidate", (ROOT / "src" / "menagerie_lite" / "workbench" / "server.py").read_text(encoding="utf-8"))
         self.assertIn("previewMjcfCandidate", app)
         self.assertIn("authorizeMjcfCandidate", app)
         self.assertIn("no MJCF-backed edition", app)
@@ -647,13 +647,13 @@ class WorkbenchTests(unittest.TestCase):
 
     def test_workbench_uses_menagerie_workbench_branding(self):
         page = (WEB_ROOT / "index.html").read_text(encoding="utf-8")
-        server = (ROOT / "src" / "menagerie_x" / "workbench" / "server.py").read_text(encoding="utf-8")
+        server = (ROOT / "src" / "menagerie_lite" / "workbench" / "server.py").read_text(encoding="utf-8")
 
-        self.assertIn("<title>Menagerie Workbench</title>", page)
-        self.assertIn("<h1>Menagerie Workbench</h1>", page)
+        self.assertIn("<title>Menagerie Lite Workbench</title>", page)
+        self.assertIn("<h1>Menagerie Lite Workbench</h1>", page)
         self.assertNotIn("Robot Menagerie", page)
-        self.assertIn("Serving Menagerie Workbench", server)
-        self.assertIn("Stopping Menagerie Workbench", server)
+        self.assertIn("Serving Menagerie Lite Workbench", server)
+        self.assertIn("Stopping Menagerie Lite Workbench", server)
 
     def test_native_viewer_control_uses_saved_editions_and_warns_about_dirty_drafts(self):
         app = (WEB_ROOT / "app.js").read_text(encoding="utf-8")

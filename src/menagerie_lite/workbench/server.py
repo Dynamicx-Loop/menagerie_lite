@@ -19,7 +19,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Callable
 
-from menagerie_x.assets import (
+from menagerie_lite.assets import (
     AssetError,
     Edition,
     MjcfEditionError,
@@ -42,7 +42,7 @@ from menagerie_x.assets import (
     UrdfCollisionExportError,
     variants,
 )
-from menagerie_x.commands.mjcf import (
+from menagerie_lite.commands.mjcf import (
     MjcfCandidateError,
     authorize_managed_candidate,
     create_managed_candidate,
@@ -54,15 +54,15 @@ from menagerie_x.commands.mjcf import (
     read_managed_candidate_metadata,
     validate_candidate,
 )
-from menagerie_x.workbench.collisions import (
+from menagerie_lite.workbench.collisions import (
     CollisionDraftStore,
     CollisionDraftNotFoundError,
     CollisionDocumentError,
     StaleCollisionDocumentError,
     load_collision_document,
 )
-from menagerie_x.workbench.mjcf_collisions import MjcfCollisionDraftStore, load_mjcf_collision_document
-from menagerie_x.workbench.urdf_runtime import PreparedUrdfRuntime, UrdfRuntimeError, prepare_urdf_runtime
+from menagerie_lite.workbench.mjcf_collisions import MjcfCollisionDraftStore, load_mjcf_collision_document
+from menagerie_lite.workbench.urdf_runtime import PreparedUrdfRuntime, UrdfRuntimeError, prepare_urdf_runtime
 
 
 class WorkbenchError(ValueError):
@@ -86,7 +86,7 @@ def _workbench_restart_command(asset_root: Path, host: str, port: int) -> list[s
     return [
         sys.executable,
         "-m",
-        "menagerie_x.cli",
+        "menagerie_lite.cli",
         "--root",
         str(asset_root),
         "workbench",
@@ -177,7 +177,7 @@ class NativeViewerProcessManager:
         command = [
             self._executable,
             "-m",
-            "menagerie_x.cli",
+            "menagerie_lite.cli",
             "--root",
             str(self._asset_root),
             "mujoco",
@@ -599,7 +599,7 @@ class WorkbenchRequestHandler(BaseHTTPRequestHandler):
         except KeyError as exc:
             raise WorkbenchError("not found") from exc
         if not path.is_file():
-            raise WorkbenchError("browser dependencies are missing; run npm install in src/menagerie_x/workbench/web")
+            raise WorkbenchError("browser dependencies are missing; run npm install in src/menagerie_lite/workbench/web")
         content_type = "application/wasm" if path.suffix == ".wasm" else "text/javascript; charset=utf-8"
         self._send(HTTPStatus.OK, path.read_bytes(), content_type)
 
@@ -611,7 +611,7 @@ class WorkbenchRequestHandler(BaseHTTPRequestHandler):
         }
         path = vendor.get(filename)
         if path is None or not path.is_file():
-            raise WorkbenchError("browser URDF dependency is missing; run npm install in src/menagerie_x/workbench/web")
+            raise WorkbenchError("browser URDF dependency is missing; run npm install in src/menagerie_lite/workbench/web")
         content = path.read_bytes()
         if filename == "URDFLoader.js":
             # Keep the official loader implementation, but map its optional
@@ -1198,13 +1198,13 @@ def main(argv: list[str] | None = None) -> int:
     server = create_server(args.root, args.host, args.port)
     host, port = server.server_address
     url = f"http://{host}:{port}"
-    print(f"Serving Menagerie Workbench at {url}", flush=True)
+    print(f"Serving Menagerie Lite Workbench at {url}", flush=True)
     if args.open_browser:
         webbrowser.open(url)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopping Menagerie Workbench.")
+        print("\nStopping Menagerie Lite Workbench.")
     finally:
         server.server_close()
     return 0

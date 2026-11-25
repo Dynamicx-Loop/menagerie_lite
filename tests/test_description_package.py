@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from menagerie_x.assets import AssetError, default_robot_root, get_asset_paths, get_edition, get_variant, load_manifest, load_scene, resolve_scene, validate_assets, variants
-from menagerie_x.commands.mujoco import check_mujoco
-from menagerie_x.cli import main as cli_main
+from menagerie_lite.assets import AssetError, default_robot_root, get_asset_paths, get_edition, get_variant, load_manifest, load_scene, resolve_scene, validate_assets, variants
+from menagerie_lite.commands.mujoco import check_mujoco
+from menagerie_lite.cli import main as cli_main
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -28,8 +28,8 @@ class AssetManifestTests(unittest.TestCase):
 
     def test_standalone_install_can_find_catalog_from_working_directory(self):
         with tempfile.TemporaryDirectory() as temp:
-            installed_package = pathlib.Path(temp) / "site-packages" / "menagerie_x"
-            with patch("menagerie_x.assets.package_root", return_value=installed_package), patch("pathlib.Path.cwd", return_value=ROOT):
+            installed_package = pathlib.Path(temp) / "site-packages" / "menagerie_lite"
+            with patch("menagerie_lite.assets.package_root", return_value=installed_package), patch("pathlib.Path.cwd", return_value=ROOT):
                 self.assertEqual(get_asset_paths().root, ASSET_ROOT)
 
     def test_hhtools_bundle_is_registered_without_moving_its_description(self):
@@ -39,7 +39,7 @@ class AssetManifestTests(unittest.TestCase):
         self.assertEqual(edition.formats, {"urdf": True, "mjcf": False})
 
     def test_manifest_uses_repository_catalog_identity(self):
-        self.assertEqual(load_manifest(ROOT)["name"], "Menagerie X")
+        self.assertEqual(load_manifest(ROOT)["name"], "Menagerie Lite")
 
     def test_manifest_lists_expected_variants(self):
         manifest = load_manifest(ROOT)

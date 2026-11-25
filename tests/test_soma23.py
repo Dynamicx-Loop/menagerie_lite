@@ -7,9 +7,9 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.assets import get_variant, inspect_variant, load_manifest, resolve_scene, validate_assets
-from menagerie_x.assets.editions import list_mjcf_editions
-from menagerie_x.commands.mujoco import check_mujoco
+from menagerie_lite.assets import get_variant, inspect_variant, load_manifest, resolve_scene, validate_assets
+from menagerie_lite.assets.editions import list_mjcf_editions
+from menagerie_lite.commands.mujoco import check_mujoco
 
 
 ASSETS = Path(__file__).resolve().parents[1]

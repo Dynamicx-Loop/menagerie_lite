@@ -4,7 +4,7 @@ import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.workbench.collisions import (
+from menagerie_lite.workbench.collisions import (
     CollisionDraftNotFoundError,
     CollisionDraftStore,
     CollisionDocumentError,

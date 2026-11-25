@@ -1,9 +1,9 @@
 # Upstream scaffold
 
-Menagerie X follows the native asset organization of
+Menagerie Lite follows the native asset organization of
 [google-deepmind/mujoco_menagerie](https://github.com/google-deepmind/mujoco_menagerie/tree/f3b6013629c7b94f8ee93fd977b161fa8350f9bc),
 pinned at `f3b6013629c7b94f8ee93fd977b161fa8350f9bc` (2026-10-23).
-The current-repository refactor keeps Menagerie X's Git history and existing
+The current-repository refactor keeps Menagerie Lite's Git history and existing
 assets rather than replacing the repository with an upstream fork.
 
 | Local file | Upstream source and treatment |

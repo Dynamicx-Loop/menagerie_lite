@@ -1,6 +1,6 @@
 # Development workflow adapted from MuJoCo Menagerie; see UPSTREAM.md.
 .PHONY: help install check test legacy-test web-test all
-WEB := src/menagerie_x/workbench/web
+WEB := src/menagerie_lite/workbench/web
 
 help:
 	@echo "make install     Install native Python development dependencies"

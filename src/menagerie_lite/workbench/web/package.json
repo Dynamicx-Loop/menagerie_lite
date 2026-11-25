@@ -1,5 +1,5 @@
 {
-  "name": "menagerie_x-workbench-web",
+  "name": "menagerie_lite-workbench-web",
   "private": true,
   "type": "module",
   "dependencies": {

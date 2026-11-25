@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from menagerie_x.assets import AssetError, Variant, get_asset_paths, get_variant, load_manifest
+from menagerie_lite.assets import AssetError, Variant, get_asset_paths, get_variant, load_manifest
 
 
 class MjcfCandidateError(AssetError):

@@ -4,7 +4,7 @@ import shutil
 import tempfile
 import unittest
 
-from menagerie_x.assets import (
+from menagerie_lite.assets import (
     MjcfEditionError,
     delete_mjcf_edition,
     duplicate_mjcf_edition,

@@ -18,7 +18,7 @@ def _print_json(data: object) -> None:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(prog="menagerie_x", description="Robot-description asset and workbench tools")
+    parser = argparse.ArgumentParser(prog="menagerie_lite", description="Robot-description asset and workbench tools")
     parser.add_argument("--root", type=Path, default=None, help="Menagerie checkout or asset root")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -130,7 +130,7 @@ def main(argv: list[str] | None = None) -> None:
                 pd_args.append("--no-browser")
             raise SystemExit(pd_params_tool.main(pd_args))
     except (AssetError, CapsuleError, MjcfCandidateError) as exc:
-        parser.exit(2, f"menagerie_x: error: {exc}\n")
+        parser.exit(2, f"menagerie_lite: error: {exc}\n")
 
 
 if __name__ == "__main__":

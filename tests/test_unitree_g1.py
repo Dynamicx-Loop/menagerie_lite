@@ -6,9 +6,9 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-from menagerie_x.assets import get_variant
-from menagerie_x.commands.mjcf import list_managed_candidates
-from menagerie_x.commands.mujoco import check_mujoco
+from menagerie_lite.assets import get_variant
+from menagerie_lite.commands.mjcf import list_managed_candidates
+from menagerie_lite.commands.mujoco import check_mujoco
 
 ROOT = Path(__file__).resolve().parents[1]
 FAMILY = ROOT / "unitree_g1"

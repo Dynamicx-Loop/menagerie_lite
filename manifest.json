@@ -10,7 +10,7 @@
       "edition": "with_racket"
     }
   },
-  "name": "Menagerie X",
+  "name": "Menagerie Lite",
   "package_version": "0.1.0",
   "scenes": {
     "flat_floor": "scenes/flat_floor/scene.json"
