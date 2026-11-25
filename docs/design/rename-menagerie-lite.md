@@ -1,7 +1,7 @@
 # Menagerie Lite rename implementation plan
 
 **Goal:** Rename the maintained project to Menagerie Lite, distribution and
-repository slug `menagerie-lite`, and Python import and command `menagerie_lite`.
+repository slug `menagerie_lite`, and Python import and command `menagerie_lite`.
 Preserve model identity, physics, assets, and provenance.
 
 ## Steps
@@ -19,7 +19,7 @@ Preserve model identity, physics, assets, and provenance.
 ## Migration and boundaries
 
 Existing Python imports and the `menagerie_x` executable must be changed to
-`menagerie_lite`; install the renamed `menagerie-lite` distribution. No old
+`menagerie_lite`; install the renamed `menagerie_lite` distribution. No old
 namespace compatibility shim is planned. GitHub and workstation renames are
 separate operations. Native simulation acceptance does not verify hardware or
 external integrations; the existing deferred suite has known unrelated failures.

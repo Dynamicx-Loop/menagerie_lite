@@ -6,10 +6,11 @@ Accepted for the project rename.
 
 ## Decision
 
-Use **Menagerie Lite** as the display name, `menagerie-lite` for the GitHub
+Use **Menagerie Lite** as the display name, `menagerie_lite` for the GitHub
 repository and Python distribution, and `menagerie_lite` for Python imports and
-the command-line executable. The repository URL is
-`https://github.com/Dynamicx-Loop/menagerie-lite`.
+the command-line executable. Python packaging tools normalize distribution names,
+so `uv.lock` records the equivalent name `menagerie-lite`. The repository URL is
+`https://github.com/Dynamicx-Loop/menagerie_lite`.
 
 This is a breaking identity change: consumers must install the renamed
 distribution and update imports and commands from `menagerie_x` to

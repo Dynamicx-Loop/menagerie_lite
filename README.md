@@ -2,7 +2,7 @@
 
 [![English](https://img.shields.io/badge/Language-English-blue)](README.md) [![简体中文](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-blue)](README.zh-CN.md)
 
-[![Build](https://img.shields.io/github/actions/workflow/status/Dynamicx-Loop/menagerie-lite/build.yml?branch=main)](https://github.com/Dynamicx-Loop/menagerie-lite/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/Dynamicx-Loop/menagerie_lite/build.yml?branch=main)](https://github.com/Dynamicx-Loop/menagerie_lite/actions/workflows/build.yml)
 
 **Menagerie Lite** is a collection of robot and sensor models for the
 [MuJoCo](https://github.com/google-deepmind/mujoco) physics engine. Its organization
@@ -24,7 +24,7 @@ vary by model; the individual READMEs describe those limits.
 - [Changelog](#changelog)
 - [License and Disclaimer](#license-and-disclaimer)
 
-Existing users: install the `menagerie-lite` distribution and update Python
+Existing users: install the `menagerie_lite` distribution and update Python
 imports and the CLI command from `menagerie_x` to `menagerie_lite`. See
 [ADR 0015](docs/adr/0015-menagerie-lite-project-identity.md).
 
@@ -38,8 +38,8 @@ been established for these local models. Install the checkout's dependencies
 with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-git clone https://github.com/Dynamicx-Loop/menagerie-lite.git
-cd menagerie-lite
+git clone https://github.com/Dynamicx-Loop/menagerie_lite.git
+cd menagerie_lite
 uv sync --locked --extra dev
 ```
 
@@ -138,8 +138,8 @@ share the same visual appearance.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 body; BSD-3-Clause servos](lumo/LICENSING.md) |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 body; BSD-3-Clause servos](lumo/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
 
 Lumo's 29-DoF gallery model uses position servos with joint-angle controls in
 radians. See the [Lumo description](lumo/README.md) for its hand-equipped
@@ -153,7 +153,7 @@ box-feet variant and control and collision details.
 
 | Preview | Name | DoFs | License |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
 
 The D435i model and preview image are imported from MuJoCo Menagerie. It is a
 fixed geometry and collision model and does not define camera image streams

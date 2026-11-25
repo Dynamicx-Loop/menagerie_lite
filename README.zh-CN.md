@@ -2,7 +2,7 @@
 
 [![English](https://img.shields.io/badge/Language-English-blue)](README.md) [![简体中文](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-blue)](README.zh-CN.md)
 
-[![Build](https://img.shields.io/github/actions/workflow/status/Dynamicx-Loop/menagerie-lite/build.yml?branch=main)](https://github.com/Dynamicx-Loop/menagerie-lite/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/Dynamicx-Loop/menagerie_lite/build.yml?branch=main)](https://github.com/Dynamicx-Loop/menagerie_lite/actions/workflows/build.yml)
 
 **Menagerie Lite** 是一个面向 [MuJoCo](https://github.com/google-deepmind/mujoco) 物理引擎的机器人和传感器模型集合。其组织方式遵循 [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie)，包含三个系列中的五个活跃原生 MJCF 模型，分为人形机器人和其他模型。Astro P1、SOMA-23 和 Atom P3 已归档，作为历史参考单独保留。“Lite” 表示这是一个刻意保持精简、经过筛选的模型集合。
 
@@ -16,7 +16,7 @@
 - [变更日志](#变更日志)
 - [许可与免责声明](#许可与免责声明)
 
-现有用户请安装 `menagerie-lite` 包，并将 Python 导入和命令行命令从
+现有用户请安装 `menagerie_lite` 包，并将 Python 导入和命令行命令从
 `menagerie_x` 更新为 `menagerie_lite`。详见 [ADR 0015](docs/adr/0015-menagerie-lite-project-identity.md)。
 
 ## 快速开始
@@ -26,8 +26,8 @@
 本仓库锁定原生 MuJoCo **3.11.0**，并要求 Python 3.12 或更高版本。机器人 README 说明了经过测试的版本；这些本地模型尚未确定更早的最低支持版本。使用 [uv](https://docs.astral.sh/uv/) 安装检出版本的依赖：
 
 ```bash
-git clone https://github.com/Dynamicx-Loop/menagerie-lite.git
-cd menagerie-lite
+git clone https://github.com/Dynamicx-Loop/menagerie_lite.git
+cd menagerie_lite
 uv sync --locked --extra dev
 ```
 
@@ -103,8 +103,8 @@ make all
 
 | 预览 | 名称 | 自由度 | 许可 |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 本体；BSD-3-Clause 伺服](lumo/LICENSING.md) |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/lumo/scene.xml"><img src="lumo/lumo.png" alt="Lumo" width="120"></a> | [Lumo](lumo/README.md) | 29 | [Apache-2.0 本体；BSD-3-Clause 伺服](lumo/LICENSING.md) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/unitree_g1/scene.xml"><img src="unitree_g1/g1.png" alt="Unitree G1" width="120"></a> | [Unitree G1](unitree_g1/README.md) | 29 | [BSD-3-Clause](unitree_g1/LICENSE.Menagerie) |
 
 Lumo 的 29 自由度展示模型使用位置伺服，关节角控制量以弧度为单位。其带手变体、碰撞几何和保留来源见 [Lumo 描述](lumo/README.md)。
 
@@ -114,7 +114,7 @@ Lumo 的 29 自由度展示模型使用位置伺服，关节角控制量以弧�
 
 | 预览 | 名称 | 自由度 | 许可 |
 | :---: | --- | --- | --- |
-| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie-lite/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
+| <a href="https://live.mujoco.org/?model=github:Dynamicx-Loop/menagerie_lite/main/realsense_d435i/scene.xml"><img src="realsense_d435i/d435i.png" alt="RealSense D435i" width="120"></a> | [RealSense D435i](realsense_d435i/README.md) | 0 | [Apache-2.0](realsense_d435i/LICENSE) |
 
 D435i 模型和预览图从 MuJoCo Menagerie 导入。它是固定的几何和碰撞模型，不定义相机图像流或 IMU 传感器。
 

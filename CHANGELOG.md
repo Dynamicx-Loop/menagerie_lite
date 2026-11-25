@@ -3,7 +3,7 @@
 ## 2026-11-25
 
 - Rename the project to Menagerie Lite, the Python distribution to
-  `menagerie-lite`, and the import namespace and CLI to `menagerie_lite`.
+  `menagerie_lite`, and the import namespace and CLI to `menagerie_lite`.
 
 ## 2026-11-24
 
