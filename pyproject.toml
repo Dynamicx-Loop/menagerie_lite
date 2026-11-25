@@ -32,7 +32,7 @@ only-include = [
     "src/menagerie_x", "manifest.json",
     "astro_p1", "lumo",
     "atom_p3", "soma23", "unitree_g1", "realsense_d435i", "scenes", "terrains",
-    "test", "tests", "docs", "LICENSES", "README.md", "CONTEXT.md",
+    "test", "tests", "docs", "LICENSES", "README.md", "README.zh-CN.md", "CONTEXT.md",
     "CONTRIBUTING.md", "GLOSSARY.md", "CHANGELOG.md", "UPSTREAM.md", "LICENSING.md",
     "catalog.py", "format_xml.py", "hatch_build.py", "Makefile", "pyproject.toml", "uv.lock",
     "scripts/build-astro-dex3-variant.py", "scripts/build-astro-mjcf.py",
